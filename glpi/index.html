@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consultoría GLPI & ITSM | Soporte Total</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Outfit", "sans-serif"] },
+            colors: {
+              brand: {
+                navy: "#0b132b",
+                card: "#152042",
+                turquoise: "#06b6d4",
+                purple: "#4f46e5",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../styles.css" />
+
+    <style>
+      .glpi-logo-color {
+        filter: none;
+        opacity: 0.9;
+      }
+      .glpi-logo-color:hover {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      /* Iconos blancos para el marquee oscuro */
+      .tech-logo-white {
+        height: 3rem;
+        width: auto;
+        filter: brightness(0) invert(1);
+        opacity: 0.6;
+        transition: all 0.4s ease;
+      }
+      .tech-logo-white:hover {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+
+  <body class="bg-white text-slate-800 antialiased overflow-x-hidden">
+    <header
+      id="main-header"
+      class="fixed w-full top-0 z-50 bg-white text-brand-navy border-b border-slate-200 transition-all duration-300 h-20 flex items-center"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-between items-center relative z-50"
+      >
+        <a href="../index.html" class="flex items-center">
+          <span
+            class="font-bold text-2xl tracking-tight transition-colors duration-300"
+            >Dijkstra<span class="text-brand-turquoise"></span
+          ></span>
+        </a>
+
+        <nav class="hidden md:flex space-x-8 items-center">
+          <a
+            href="../index.html#nosotros"
+            class="text-sm font-medium hover:text-brand-turquoise transition-colors duration-300"
+            >Sobre Nosotros</a
+          >
+
+          <div class="relative group py-6">
+            <a
+              href="../index.html#servicios"
+              class="text-sm font-medium hover:text-brand-turquoise transition-colors duration-300 flex items-center gap-1"
+            >
+              Servicios
+              <i
+                class="ph-bold ph-caret-down text-[10px] transition-transform duration-300 group-hover:rotate-180"
+              ></i>
+            </a>
+
+            <div
+              class="absolute top-full left-0 w-64 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50"
+            >
+              <div
+                class="bg-white rounded-xl shadow-2xl border border-slate-100 p-2 flex flex-col"
+              >
+                <a
+                  href="/software/"
+                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
+                >
+                  <i
+                    class="ph-fill ph-code-block text-brand-turquoise text-lg"
+                  ></i>
+                  Desarrollo de Software
+                </a>
+                <a
+                  href="/gestionti/"
+                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
+                >
+                  <i
+                    class="ph-fill ph-headset text-brand-turquoise text-lg"
+                  ></i>
+                  Gestión de Servicios TI
+                </a>
+                <a
+                  href="/soportetotal/"
+                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
+                >
+                  <i
+                    class="ph-fill ph-rocket-launch text-brand-turquoise text-lg"
+                  ></i>
+                  Soporte Total
+                </a>
+                <a
+                  href="/glpi/"
+                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
+                >
+                  <i
+                    class="ph-fill ph-chart-bar text-brand-turquoise text-lg"
+                  ></i>
+                  Consultoría GLPI
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="#contacto"
+            class="text-sm font-medium hover:text-brand-turquoise transition-colors duration-300"
+            >Contacto</a
+          >
+
+          <a
+            href="https://wa.me/51981199317"
+            class="bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors shadow-lg"
+          >
+            Contáctanos
+          </a>
+        </nav>
+
+        <div class="md:hidden flex items-center">
+          <button
+            id="mobile-menu-btn"
+            class="hover:text-brand-turquoise focus:outline-none p-2 transition-colors duration-300"
+          >
+            <i id="mobile-menu-icon" class="ph-bold ph-list text-3xl"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+    <!-- Fin de Header -->
+
+    <div
+      id="mobile-overlay"
+      class="fixed inset-0 bg-brand-navy/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"
+    ></div>
+
+    <div
+      id="mobile-menu"
+      class="fixed top-0 right-0 w-[85%] max-w-sm h-full bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col"
+    >
+      <div class="p-6 mt-4">
+        <button
+          id="close-menu-btn"
+          class="w-full flex items-center justify-between border-2 border-brand-navy rounded-md px-4 py-2 text-brand-navy font-bold hover:bg-slate-50 transition"
+        >
+          <span class="text-base">Cerrar</span>
+          <i class="ph-bold ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <nav class="flex flex-col px-8 py-4 space-y-4 flex-grow overflow-y-auto">
+        <a
+          href="../index.html#nosotros"
+          class="mobile-link text-lg font-bold text-brand-navy hover:text-brand-turquoise transition py-2"
+          >Sobre Nosotros</a
+        >
+
+        <div>
+          <button
+            id="mobile-servicios-btn"
+            class="w-full text-lg font-bold text-brand-navy flex justify-between items-center hover:text-brand-turquoise transition py-2"
+          >
+            Servicios
+            <i
+              id="mobile-servicios-icon"
+              class="ph-bold ph-caret-down bg-slate-100 p-1.5 rounded-md text-sm transition-transform duration-300"
+            ></i>
+          </button>
+
+          <div
+            id="mobile-servicios-menu"
+            class="hidden flex-col pl-4 pt-3 pb-2 space-y-4 border-l-2 border-slate-100 mt-2"
+          >
+            <a
+              href="/software/"
+              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
+            >
+              <i class="ph-fill ph-code-block text-brand-turquoise text-lg"></i>
+              Desarrollo de Software
+            </a>
+            <a
+              href="/gestionti/"
+              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
+            >
+              <i class="ph-fill ph-headset text-brand-turquoise text-lg"></i>
+              Gestión de Servicios TI
+            </a>
+            <a
+              href="/soportetotal/"
+              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
+            >
+              <i
+                class="ph-fill ph-rocket-launch text-brand-turquoise text-lg"
+              ></i>
+              Soporte Total
+            </a>
+            <a
+              href="/glpi/"
+              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
+            >
+              <i class="ph-fill ph-chart-bar text-brand-turquoise text-lg"></i>
+              Consultoría GLPI
+            </a>
+          </div>
+        </div>
+
+        <a
+          href="#contacto"
+          class="mobile-link text-lg font-bold text-brand-navy hover:text-brand-turquoise transition py-2"
+          >Contacto</a
+        >
+      </nav>
+    </div>
+
+    <section
+      class="relative pt-40 pb-24 lg:pt-48 lg:pb-32 text-center overflow-hidden min-h-[80vh] flex items-center bg-brand-navy"
+    >
+      <div class="absolute inset-0 z-0">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          class="w-full h-full object-cover opacity-40 mix-blend-screen"
+        >
+          <source src="../videos/glpi/glpi-fondo.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <div
+        class="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-brand-navy via-brand-navy/80 to-transparent z-10 pointer-events-none"
+      ></div>
+
+      <div
+        class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full reveal"
+      >
+        <h1
+          class="text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1.1] mb-6 tracking-tight flex flex-wrap justify-center items-center gap-2 md:gap-3"
+        >
+          <span>Consultoría y despliegue</span>
+          <span class="inline-flex items-center align-middle">
+            <img
+              src="../img/glpi/glpi-logo.webp"
+              alt="GLPI"
+              class="h-[0.8em] md:h-[0.9em] w-auto brightness-0 invert drop-shadow-lg relative -top-1"
+            />
+          </span>
+        </h1>
+        <p
+          class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-medium"
+        >
+          Centraliza la gestión de tu mesa de ayuda y domina el ciclo de vida de
+          tus activos tecnológicos. Alineamos GLPI a tus procesos bajo las
+          mejores prácticas de ITIL.
+        </p>
+        <div
+          class="flex flex-col sm:flex-row justify-center items-center gap-4"
+        >
+          <a
+            href="#contacto"
+            class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-gradient-to-r from-brand-turquoise to-brand-purple text-white px-8 py-3.5 rounded-lg text-base font-bold transition-transform hover:scale-105 shadow-[0_10px_25px_rgba(79,70,229,0.3)]"
+          >
+            Agendar auditoría
+          </a>
+          <a
+            href="#metodologia"
+            class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-3.5 rounded-lg text-base font-bold transition-colors"
+          >
+            Ver metodología
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="datos" class="relative py-20 bg-brand-navy -mt-[1px] z-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16 reveal">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            ¿Por qué integrar<span
+              class="inline-flex items-center align-middle"
+            >
+              <img
+                src="../img/glpi/glpi-logo.webp"
+                alt="GLPI"
+                class="h-[0.9em] w-auto ml-2 md:ml-3 brightness-0 invert drop-shadow-lg"
+              />
+            </span>
+            en tu empresa?
+          </h2>
+          <p class="text-slate-400 max-w-2xl mx-auto">
+            Deja atrás los correos perdidos y las hojas de cálculo. GLPI es la
+            herramienta Open Source líder mundial para la gestión integral de
+            TI.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            class="bg-brand-card rounded-2xl p-8 reveal shadow-lg border border-white/5 hover:border-brand-turquoise/50 transition-colors group"
+          >
+            <i
+              class="ph-bold ph-coins text-4xl text-brand-turquoise mb-4 group-hover:scale-110 transition-transform"
+            ></i>
+            <h4 class="text-lg font-bold text-white mb-2">
+              Cero Costos de Licencia
+            </h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Al ser Open Source, eliminas los altos costos de licenciamiento
+              por agente. Inviertes solo en la consultoría.
+            </p>
+          </div>
+          <div
+            class="bg-brand-card rounded-2xl p-8 reveal reveal-delay-100 shadow-lg border border-white/5 hover:border-brand-turquoise/50 transition-colors group"
+          >
+            <i
+              class="ph-bold ph-share-network text-4xl text-brand-turquoise mb-4 group-hover:scale-110 transition-transform"
+            ></i>
+            <h4 class="text-lg font-bold text-white mb-2">Multientidad</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Gestiona el soporte y el inventario de múltiples sucursales o
+              clientes desde una única plataforma aislada.
+            </p>
+          </div>
+          <div
+            class="bg-brand-card rounded-2xl p-8 reveal reveal-delay-200 shadow-lg border border-white/5 hover:border-brand-turquoise/50 transition-colors group"
+          >
+            <i
+              class="ph-bold ph-plugs text-4xl text-brand-turquoise mb-4 group-hover:scale-110 transition-transform"
+            ></i>
+            <h4 class="text-lg font-bold text-white mb-2">Alta Integración</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Se conecta nativamente con tu Active Directory (AD/LDAP), correos
+              (IMAP/SMTP) y cuenta con API REST.
+            </p>
+          </div>
+          <div
+            class="bg-brand-card rounded-2xl p-8 reveal reveal-delay-300 shadow-lg border border-white/5 hover:border-brand-turquoise/50 transition-colors group"
+          >
+            <i
+              class="ph-bold ph-shield-check text-4xl text-brand-turquoise mb-4 group-hover:scale-110 transition-transform"
+            ></i>
+            <h4 class="text-lg font-bold text-white mb-2">Gobernanza ITIL</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Soporta nativamente los procesos de Gestión de Incidentes,
+              Requerimientos, Problemas y Cambios.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="w-full relative z-10 leading-[0] bg-white -mt-[1px]">
+      <svg
+        viewBox="0 0 1440 100"
+        class="w-full h-auto block"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#0b132b"
+          d="M0,0 C320,100 420,100 720,50 C1020,0 1120,0 1440,50 L1440,0 L0,0 Z"
+        ></path>
+      </svg>
+    </div>
+
+    <section id="metodologia" class="relative py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-20 reveal">
+          <h2
+            class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-turquoise to-brand-purple leading-tight mb-4"
+          >
+            Transformamos tu operación TI paso a paso
+          </h2>
+          <p class="text-slate-600 text-lg max-w-3xl mx-auto">
+            Nuestra metodología asegura que GLPI se adapte a los procesos de tu
+            empresa, garantizando una adopción rápida y resultados medibles.
+          </p>
+        </div>
+
+        <div class="space-y-24">
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center reveal"
+          >
+            <div class="order-2 lg:order-1">
+              <span
+                class="text-brand-turquoise font-bold tracking-widest uppercase text-sm mb-2 block"
+                >Paso 1</span
+              >
+              <h3 class="text-3xl font-bold text-brand-navy mb-4">
+                Diagnóstico y Diseño de Procesos
+              </h3>
+              <p class="text-slate-600 text-lg leading-relaxed mb-6">
+                Evaluamos la madurez de tu área de TI. Diseñamos catálogos de
+                servicios, definimos SLAs, matrices de escalamiento y flujos de
+                aprobación basados en el marco ITIL antes de tocar una sola
+                línea de código.
+              </p>
+            </div>
+            <div
+              class="order-1 lg:order-2 bg-[#f4f7fb] rounded-[2rem] aspect-[4/3] flex items-center justify-center relative overflow-hidden border border-slate-100"
+            >
+              <i
+                class="ph-fill ph-magnifying-glass-plus text-[12rem] text-brand-navy opacity-5 absolute -right-4 -bottom-4"
+              ></i>
+              <div
+                class="w-24 h-24 bg-white rounded-full shadow-xl flex items-center justify-center z-10"
+              >
+                <i
+                  class="ph-bold ph-magnifying-glass-plus text-4xl text-brand-turquoise"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center reveal"
+          >
+            <div
+              class="bg-[#f4f7fb] rounded-[2rem] aspect-[4/3] flex items-center justify-center relative overflow-hidden border border-slate-100"
+            >
+              <i
+                class="ph-fill ph-hard-drives text-[12rem] text-brand-navy opacity-5 absolute -left-4 -bottom-4"
+              ></i>
+              <div
+                class="w-24 h-24 bg-white rounded-full shadow-xl flex items-center justify-center z-10"
+              >
+                <i
+                  class="ph-bold ph-hard-drives text-4xl text-brand-purple"
+                ></i>
+              </div>
+            </div>
+            <div>
+              <span
+                class="text-brand-purple font-bold tracking-widest uppercase text-sm mb-2 block"
+                >Paso 2</span
+              >
+              <h3 class="text-3xl font-bold text-brand-navy mb-4">
+                Despliegue y Personalización GLPI
+              </h3>
+              <p class="text-slate-600 text-lg leading-relaxed mb-6">
+                Instalación en servidores on-premise o cloud. Personalizamos
+                entidades, perfiles de usuario, plantillas de tickets, reglas de
+                negocio y adaptamos la interfaz corporativa para una adopción
+                sin resistencia.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center reveal"
+          >
+            <div class="order-2 lg:order-1">
+              <span
+                class="text-brand-turquoise font-bold tracking-widest uppercase text-sm mb-2 block"
+                >Paso 3</span
+              >
+              <h3 class="text-3xl font-bold text-brand-navy mb-4">
+                Gestión de Inventario (CMDB)
+              </h3>
+              <p class="text-slate-600 text-lg leading-relaxed mb-6">
+                Automatizamos el descubrimiento de tus activos utilizando
+                agentes como GLPI Agent o FusionInventory. Mantén el control
+                financiero y el ciclo de vida de tu hardware y licencias de
+                software al día.
+              </p>
+            </div>
+            <div
+              class="order-1 lg:order-2 bg-[#f4f7fb] rounded-[2rem] aspect-[4/3] flex items-center justify-center relative overflow-hidden border border-slate-100"
+            >
+              <i
+                class="ph-fill ph-barcode text-[12rem] text-brand-navy opacity-5 absolute -right-4 -bottom-4"
+              ></i>
+              <div
+                class="w-24 h-24 bg-white rounded-full shadow-xl flex items-center justify-center z-10"
+              >
+                <i class="ph-bold ph-barcode text-4xl text-brand-turquoise"></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center reveal"
+          >
+            <div
+              class="bg-[#f4f7fb] rounded-[2rem] aspect-[4/3] flex items-center justify-center relative overflow-hidden border border-slate-100"
+            >
+              <i
+                class="ph-fill ph-chalkboard-teacher text-[12rem] text-brand-navy opacity-5 absolute -left-4 -bottom-4"
+              ></i>
+              <div
+                class="w-24 h-24 bg-white rounded-full shadow-xl flex items-center justify-center z-10"
+              >
+                <i
+                  class="ph-bold ph-chalkboard-teacher text-4xl text-brand-purple"
+                ></i>
+              </div>
+            </div>
+            <div>
+              <span
+                class="text-brand-purple font-bold tracking-widest uppercase text-sm mb-2 block"
+                >Paso 4</span
+              >
+              <h3 class="text-3xl font-bold text-brand-navy mb-4">
+                Capacitación y Mejora Continua
+              </h3>
+              <p class="text-slate-600 text-lg leading-relaxed mb-6">
+                Transferimos el conocimiento a tus técnicos y usuarios finales.
+                Desarrollamos dashboards personalizados en Metabase o PowerBI
+                conectados a GLPI para medir KPIs y tomar decisiones basadas en
+                datos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="integraciones"
+      class="relative py-20 bg-[#070b19] overflow-hidden border-y border-white/5"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12">
+        <div class="w-full text-center reveal">
+          <h2
+            class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight"
+          >
+            Ecosistema de Integración GLPI
+          </h2>
+          <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+            Conectamos GLPI con las herramientas corporativas que tu empresa ya
+            utiliza para centralizar la comunicación y la identidad.
+          </p>
+        </div>
+      </div>
+
+      <div class="w-full relative z-10 reveal reveal-delay-100 py-4">
+        <div class="marquee-wrapper">
+          <div
+            class="marquee-track flex items-center justify-around gap-16 px-8"
+          >
+            <img
+              src="../img/glpi/iconos/AD.svg"
+              alt="Active Directory"
+              class="tech-logo-white"
+            />
+            <img
+              src="../img/glpi/iconos/azure.svg"
+              alt="Azure AD"
+              class="tech-logo-white"
+            />
+            <img
+              src="../img/glpi/iconos/google-workspace.svg"
+              alt="Google Workspace"
+              class="tech-logo-white"
+            />
+            <img
+              src="../img/glpi/iconos/teams.svg"
+              alt="Teams"
+              class="tech-logo-white"
+            />
+            <img
+              src="../img/glpi/iconos/wsp.png"
+              alt="WhatsApp"
+              class="tech-logo-white"
+            />
+          </div>
+
+          <div
+            class="marquee-track flex items-center justify-around gap-16 px-8"
+          >
+            <img
+              src="../img/glpi/iconos/AD.svg"
+              alt="Active Directory"
+              class="tech-logo-white"
+            />
+            <img
+              src="../img/glpi/iconos/azure.svg"
+              alt="Azure AD"
+              class="tech-logo-white"
+            />
+            <img
+              src="../img/glpi/iconos/google-workspace.svg"
+              alt="Google Workspace"
+              class="tech-logo-white"
+            />
+            <img
+              src="../img/glpi/iconos/teams.svg"
+              alt="Teams"
+              class="tech-logo-white"
+            />
+            <img
+              src="../img/glpi/iconos/wsp.png"
+              alt="WhatsApp"
+              class="tech-logo-white"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-white relative">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-slate-50 to-white z-0"
+      ></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <div class="lg:col-span-4 reveal reveal-left">
+            <h2
+              class="text-4xl md:text-5xl font-bold text-brand-navy mb-6 tracking-tight leading-tight"
+            >
+              Preguntas<br /><span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-brand-turquoise to-brand-purple"
+                >frecuentes</span
+              >
+            </h2>
+            <p class="text-slate-600 text-lg mb-8">
+              Resolvemos tus dudas sobre la implementación, costos y beneficios
+              de adoptar GLPI como tu plataforma ITSM.
+            </p>
+          </div>
+
+          <div class="lg:col-span-8 space-y-4 reveal reveal-right">
+            <div
+              class="border border-slate-200 rounded-xl overflow-hidden transition-all duration-300 accordion-item bg-white shadow-sm hover:shadow-md"
+            >
+              <button
+                class="accordion-header w-full text-left px-6 py-5 hover:bg-slate-50 flex justify-between items-center focus:outline-none"
+              >
+                <span class="text-lg font-bold text-brand-navy"
+                  >¿Cuánto tiempo toma implementar GLPI?</span
+                >
+                <i
+                  class="ph-bold ph-plus text-xl text-brand-turquoise transition-transform duration-300 icon"
+                ></i>
+              </button>
+              <div
+                class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6"
+              >
+                <p class="text-slate-600 pb-5 pt-2">
+                  Depende de la complejidad y madurez de la empresa. Un
+                  despliegue básico (catálogo simple, AD integrado y correos)
+                  puede tomar <strong>2 a 3 semanas</strong>. Proyectos con
+                  inventario automatizado y reglas avanzadas requieren de
+                  <strong>1 a 2 meses</strong> de consultoría conjunta.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="border border-slate-200 rounded-xl overflow-hidden transition-all duration-300 accordion-item bg-white shadow-sm hover:shadow-md"
+            >
+              <button
+                class="accordion-header w-full text-left px-6 py-5 hover:bg-slate-50 flex justify-between items-center focus:outline-none"
+              >
+                <span class="text-lg font-bold text-brand-navy"
+                  >Ya tenemos un sistema de tickets, ¿Vale la pena migrar?</span
+                >
+                <i
+                  class="ph-bold ph-plus text-xl text-brand-turquoise transition-transform duration-300 icon"
+                ></i>
+              </button>
+              <div
+                class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6"
+              >
+                <p class="text-slate-600 pb-5 pt-2">
+                  Absolutamente. Si pagas licencias costosas por agente
+                  (Zendesk, Jira) o si tu sistema actual no tiene CMDB
+                  integrada. GLPI unifica HelpDesk y Gestión de Activos sin
+                  costos mensuales por usuario.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="border border-slate-200 rounded-xl overflow-hidden transition-all duration-300 accordion-item bg-white shadow-sm hover:shadow-md"
+            >
+              <button
+                class="accordion-header w-full text-left px-6 py-5 hover:bg-slate-50 flex justify-between items-center focus:outline-none"
+              >
+                <span class="text-lg font-bold text-brand-navy"
+                  >¿Nosotros mismos alojamos el sistema o ustedes lo
+                  hacen?</span
+                >
+                <i
+                  class="ph-bold ph-plus text-xl text-brand-turquoise transition-transform duration-300 icon"
+                ></i>
+              </button>
+              <div
+                class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6"
+              >
+                <p class="text-slate-600 pb-5 pt-2">
+                  Ambas opciones son viables. Instalamos GLPI en tu
+                  infraestructura (on-premise) para que tengas control total de
+                  los datos, o lo configuramos en un servidor Cloud (AWS, Azure
+                  o VPS privado) garantizando seguridad y respaldo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="w-full relative z-10 leading-[0] bg-white -mt-[1px]">
+      <svg
+        viewBox="0 0 1440 120"
+        class="w-full h-auto block"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#070b19"
+          d="M0,60 C320,120 420,120 720,60 C1020,0 1120,0 1440,60 L1440,120 L0,120 Z"
+        ></path>
+      </svg>
+    </div>
+
+    <footer
+      id="contacto"
+      class="bg-[#070b19] pt-12 pb-8 relative z-10 -mt-[1px]"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 border-b border-white/10 pb-16"
+        >
+          <div class="lg:col-span-4 reveal reveal-left">
+            <div class="mb-6">
+              <span class="font-bold text-3xl text-white tracking-tight"
+                ><span class="text-brand-turquoise">Dijkstra</span></span
+              >
+            </div>
+            <p class="text-slate-400 text-sm leading-relaxed mb-8 pr-4">
+              Somos tu aliado estratégico en gestión TI. Con soluciones a la
+              medida, transformamos tu visión en operaciones eficientes.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="https://www.linkedin.com/company/dijkstrape"
+                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-navy hover:bg-brand-turquoise hover:text-white transition"
+                ><i class="ph-fill ph-linkedin-logo text-xl"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-navy hover:bg-brand-turquoise hover:text-white transition"
+                ><i class="ph-bold ph-instagram-logo text-xl"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-navy hover:bg-brand-turquoise hover:text-white transition"
+                ><i class="ph-fill ph-facebook-logo text-xl"></i
+              ></a>
+            </div>
+          </div>
+
+          <div
+            class="lg:col-span-3 space-y-6 pt-4 reveal reveal-left reveal-delay-100"
+          >
+            <div class="flex items-start gap-4">
+              <i class="ph-fill ph-map-pin text-white text-xl mt-1"></i>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Av. Santa Rosa 352 - Callao, Perú
+              </p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="ph-fill ph-phone text-white text-xl"></i>
+              <p class="text-slate-400 text-sm font-semibold">
+                +51 981 199 317
+              </p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="ph-fill ph-envelope-simple text-white text-xl"></i>
+              <p class="text-slate-400 text-sm font-semibold">
+                dijkstracomercial@gmail.com
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex flex-col md:flex-row justify-between items-center pt-8 text-xs text-slate-500"
+        >
+          <a
+            href="#"
+            class="hover:text-white transition font-semibold mb-4 md:mb-0"
+            >Política de Privacidad</a
+          >
+          <p>&copy; 2026. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <a
+      href="https://wa.me/51981199317"
+      target="_blank"
+      class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-transform duration-300 flex items-center justify-center w-14 h-14 p-0"
+    >
+      <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
+    </a>
+
+    <script src="../script.js"></script>
+    <script>
+      // Scripts para Header y Acordeón
+      document.addEventListener("DOMContentLoaded", () => {
+        // Header Color
+        const header = document.getElementById("main-header");
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 20) {
+            header.classList.remove("bg-white", "text-brand-navy");
+            header.classList.add(
+              "bg-brand-navy/95",
+              "text-white",
+              "border-white/5",
+            );
+          } else {
+            header.classList.add("bg-white", "text-brand-navy");
+            header.classList.remove(
+              "bg-brand-navy/95",
+              "text-white",
+              "border-white/5",
+            );
+          }
+        });
+
+        // FAQ Accordion
+        const accordionHeaders = document.querySelectorAll(".accordion-header");
+        accordionHeaders.forEach((header) => {
+          header.addEventListener("click", () => {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector(".icon");
+
+            if (content.style.maxHeight) {
+              content.style.maxHeight = null;
+              icon.classList.replace("ph-minus", "ph-plus");
+              icon.style.transform = "rotate(0deg)";
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+              icon.classList.replace("ph-plus", "ph-minus");
+              icon.style.transform = "rotate(180deg)";
+            }
+          });
+        });
+
+        // Mobile Menu Toggles
+        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+        const closeMenuBtn = document.getElementById("close-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const mobileOverlay = document.getElementById("mobile-overlay");
+
+        if (mobileMenuBtn) {
+          mobileMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.remove("translate-x-full");
+            mobileOverlay.classList.remove("hidden");
+            setTimeout(() => mobileOverlay.classList.remove("opacity-0"), 10);
+          });
+        }
+
+        if (closeMenuBtn) {
+          closeMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.add("translate-x-full");
+            mobileOverlay.classList.add("opacity-0");
+            setTimeout(() => mobileOverlay.classList.add("hidden"), 300);
+          });
+        }
+
+        const mobileServiciosBtn = document.getElementById(
+          "mobile-servicios-btn",
+        );
+        const mobileServiciosMenu = document.getElementById(
+          "mobile-servicios-menu",
+        );
+        const mobileServiciosIcon = document.getElementById(
+          "mobile-servicios-icon",
+        );
+
+        if (mobileServiciosBtn) {
+          mobileServiciosBtn.addEventListener("click", () => {
+            mobileServiciosMenu.classList.toggle("hidden");
+            mobileServiciosMenu.classList.toggle("flex");
+            mobileServiciosIcon.classList.toggle("rotate-180");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

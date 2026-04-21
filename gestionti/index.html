@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestion de servicios IT</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Outfit", "sans-serif"] },
+            colors: {
+              brand: {
+                navy: "#0b132b",
+                card: "#152042",
+                turquoise: "#06b6d4",
+                purple: "#4f46e5",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <link rel="stylesheet" href="../styles.css" />
+
+    <style>
+      /* Estilos específicos para los logos del Tech Stack (Fondo Blanco) */
+      .tech-logo {
+        height: 3rem; /* 48px */
+        width: auto;
+        filter: grayscale(100%);
+        opacity: 0.5;
+        transition: all 0.4s ease;
+      }
+      .tech-logo:hover {
+        filter: grayscale(0%);
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body class="bg-white text-slate-800 antialiased overflow-x-hidden">
+    <header
+      id="main-header"
+      class="fixed w-full top-0 z-50 bg-white text-brand-navy border-b border-slate-200 transition-all duration-300 h-20 flex items-center"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-between items-center relative z-50"
+      >
+        <a href="../index.html" class="flex items-center">
+          <span
+            class="font-bold text-2xl tracking-tight transition-colors duration-300"
+            >Dijkstra<span class="text-brand-turquoise"></span
+          ></span>
+        </a>
+
+        <nav class="hidden md:flex space-x-8 items-center">
+          <a
+            href="../index.html#nosotros"
+            class="text-sm font-medium hover:text-brand-turquoise transition-colors duration-300"
+            >Sobre Nosotros</a
+          >
+
+          <div class="relative group py-6">
+            <a
+              href="../index.html#servicios"
+              class="text-sm font-medium hover:text-brand-turquoise transition-colors duration-300 flex items-center gap-1"
+            >
+              Servicios
+              <i
+                class="ph-bold ph-caret-down text-[10px] transition-transform duration-300 group-hover:rotate-180"
+              ></i>
+            </a>
+
+            <div
+              class="absolute top-full left-0 w-64 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50"
+            >
+              <div
+                class="bg-white rounded-xl shadow-2xl border border-slate-100 p-2 flex flex-col"
+              >
+                <a
+                  href="/software/"
+                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
+                >
+                  <i
+                    class="ph-fill ph-code-block text-brand-turquoise text-lg"
+                  ></i>
+                  Desarrollo de Software
+                </a>
+                <a
+                  href="/gestionti/"
+                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
+                >
+                  <i
+                    class="ph-fill ph-headset text-brand-turquoise text-lg"
+                  ></i>
+                  Gestión de Servicios TI
+                </a>
+                <a
+                  href="/soportetotal/"
+                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
+                >
+                  <i
+                    class="ph-fill ph-rocket-launch text-brand-turquoise text-lg"
+                  ></i>
+                  Soporte Total
+                </a>
+                <a
+                  href="/glpi/"
+                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
+                >
+                  <i
+                    class="ph-fill ph-chart-bar text-brand-turquoise text-lg"
+                  ></i>
+                  Consultoría GLPI
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="#contacto"
+            class="text-sm font-medium hover:text-brand-turquoise transition-colors duration-300"
+            >Contacto</a
+          >
+
+          <a
+            href="https://wa.me/51981199317"
+            class="bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors shadow-lg"
+          >
+            Contáctanos
+          </a>
+        </nav>
+
+        <div class="md:hidden flex items-center">
+          <button
+            id="mobile-menu-btn"
+            class="hover:text-brand-turquoise focus:outline-none p-2 transition-colors duration-300"
+          >
+            <i id="mobile-menu-icon" class="ph-bold ph-list text-3xl"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+    <!-- Fin de Header -->
+
+    <div
+      id="mobile-overlay"
+      class="fixed inset-0 bg-brand-navy/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"
+    ></div>
+
+    <div
+      id="mobile-menu"
+      class="fixed top-0 right-0 w-[85%] max-w-sm h-full bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col"
+    >
+      <div class="p-6 mt-4">
+        <button
+          id="close-menu-btn"
+          class="w-full flex items-center justify-between border-2 border-brand-navy rounded-md px-4 py-2 text-brand-navy font-bold hover:bg-slate-50 transition"
+        >
+          <span class="text-base">Cerrar</span>
+          <i class="ph-bold ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <nav class="flex flex-col px-8 py-4 space-y-4 flex-grow overflow-y-auto">
+        <a
+          href="../index.html#nosotros"
+          class="mobile-link text-lg font-bold text-brand-navy hover:text-brand-turquoise transition py-2"
+          >Sobre Nosotros</a
+        >
+
+        <div>
+          <button
+            id="mobile-servicios-btn"
+            class="w-full text-lg font-bold text-brand-navy flex justify-between items-center hover:text-brand-turquoise transition py-2"
+          >
+            Servicios
+            <i
+              id="mobile-servicios-icon"
+              class="ph-bold ph-caret-down bg-slate-100 p-1.5 rounded-md text-sm transition-transform duration-300"
+            ></i>
+          </button>
+
+          <div
+            id="mobile-servicios-menu"
+            class="hidden flex-col pl-4 pt-3 pb-2 space-y-4 border-l-2 border-slate-100 mt-2"
+          >
+            <a
+              href="/software/"
+              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
+            >
+              <i class="ph-fill ph-code-block text-brand-turquoise text-lg"></i>
+              Desarrollo de Software
+            </a>
+            <a
+              href="/gestionti/"
+              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
+            >
+              <i class="ph-fill ph-headset text-brand-turquoise text-lg"></i>
+              Gestión de Servicios TI
+            </a>
+            <a
+              href="/soportetotal/"
+              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
+            >
+              <i
+                class="ph-fill ph-rocket-launch text-brand-turquoise text-lg"
+              ></i>
+              Soporte Total
+            </a>
+            <a
+              href="/glpi/"
+              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
+            >
+              <i class="ph-fill ph-chart-bar text-brand-turquoise text-lg"></i>
+              Consultoría GLPI
+            </a>
+          </div>
+        </div>
+
+        <a
+          href="#contacto"
+          class="mobile-link text-lg font-bold text-brand-navy hover:text-brand-turquoise transition py-2"
+          >Contacto</a
+        >
+      </nav>
+    </div>
+
+    <section
+      class="relative pt-40 pb-24 lg:pt-48 lg:pb-32 text-left overflow-hidden min-h-[85vh] flex items-center bg-white"
+    >
+      <div class="absolute inset-0 z-0">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          class="w-full h-full object-cover"
+        >
+          <source src="../videos/Gestion-It/It-Service.mp4" type="video/mp4" />
+        </video>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-transparent from-50% to-white"
+        ></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div class="w-full md:w-[60%] reveal">
+          <h1
+            class="text-5xl md:text-6xl lg:text-7xl font-bold text-brand-navy leading-[1.1] mb-6 tracking-tight"
+          >
+            Gestión de servicios IT
+          </h1>
+          <p
+            class="text-lg md:text-xl text-slate-600 mb-10 max-w-md leading-relaxed font-medium"
+          >
+            Optimiza la operación tecnológica de tu empresa. Garantizamos
+            continuidad, soporte de primer nivel y alineación estratégica de tus
+            procesos informáticos para que tu equipo se enfoque exclusivamente
+            en hacer crecer el negocio.
+          </p>
+          <a
+            href="#contacto"
+            class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-turquoise to-brand-purple text-white px-8 py-3.5 rounded-lg text-base font-bold transition-transform hover:scale-105 shadow-[0_10px_25px_rgba(79,70,229,0.3)]"
+          >
+            Solicita una cotización
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="soluciones" class="relative py-24 bg-white -mt-[1px]">
+<div class="absolute inset-0 z-0 bg-[url('img/Gestion-it/fondo-vertical-textura-2-1.jpg')] bg-cover bg-top opacity-60"></div>
+
+      <div
+        class="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-white to-transparent z-0"
+      ></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex flex-col lg:flex-row gap-16">
+          <div
+            class="w-full lg:w-5/12 reveal reveal-left lg:sticky lg:top-32 lg:self-start"
+          >
+            <div>
+              <h2
+                class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-turquoise to-brand-purple leading-tight mb-6 tracking-tight"
+              >
+                Potenciamos tu infraestructura con soluciones IT a medida
+              </h2>
+              <p class="text-slate-600 text-lg leading-relaxed">
+                Administramos, soportamos y optimizamos tu entorno tecnológico.
+                Desde la atención a usuarios hasta la consultoría especializada,
+                aseguramos que la tecnología sea el motor de tu empresa y no un
+                obstáculo operativo.
+              </p>
+            </div>
+          </div>
+
+          <div class="w-full lg:w-7/12 space-y-8">
+            <div
+              class="bg-[#182650] rounded-3xl p-10 shadow-xl reveal reveal-right"
+            >
+              <i
+                class="ph-bold ph-headset text-4xl text-white mb-4 group-hover:scale-110 transition-transform"
+              ></i>
+
+              <h3 class="text-3xl font-bold text-white mb-4">Mesa de Ayuda</h3>
+              <p class="text-slate-300 text-base leading-relaxed mb-8">
+                Soporte técnico ágil y omnicanal para resolver las incidencias
+                del día a día. Brindamos respuestas rápidas para mantener la
+                productividad de tus usuarios sin interrupciones.
+              </p>
+              <a
+                href="https://wa.me/51981199317"
+                class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors"
+              >
+                Habla con un experto
+              </a>
+            </div>
+
+            <div
+              class="bg-[#182650] rounded-3xl p-10 shadow-xl reveal reveal-right"
+            >
+              <i
+                class="ph-bold ph-gauge text-4xl text-white mb-4 group-hover:scale-110 transition-transform"
+              ></i>
+
+              <h3 class="text-3xl font-bold text-white mb-4">
+                Monitoreo y Gestión de Infraestructura
+              </h3>
+              <p class="text-slate-300 text-base leading-relaxed mb-8">
+                Supervisión proactiva 24/7 de tus servidores, redes y sistemas
+                críticos. Detectamos y mitigamos problemas silenciosos antes de
+                que afecten la continuidad de tu operación.
+              </p>
+              <a
+                href="https://wa.me/51981199317"
+                class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors"
+              >
+                Habla con un experto
+              </a>
+            </div>
+
+            <div
+              class="bg-[#182650] rounded-3xl p-10 shadow-xl reveal reveal-right"
+            >
+              <i
+                class="ph-bold ph-download-simple text-4xl text-white mb-4 group-hover:scale-110 transition-transform"
+              ></i>
+
+              <h3 class="text-3xl font-bold text-white mb-4">
+                Consultoría e Implementación ITSM
+              </h3>
+              <p class="text-slate-300 text-base leading-relaxed mb-8">
+                Diseñamos procesos basados en las mejores prácticas (ITIL) y
+                desplegamos herramientas avanzadas como GLPI para el control
+                total de tus activos, tickets y flujos de trabajo.
+              </p>
+              <a
+                href="https://wa.me/51981199317"
+                class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors"
+              >
+                Habla con un experto
+              </a>
+            </div>
+
+            <div
+              class="bg-[#182650] rounded-3xl p-10 shadow-xl reveal reveal-right"
+            >
+              <i
+                class="ph-bold ph-hard-drives text-4xl text-white mb-4 group-hover:scale-110 transition-transform"
+              ></i>
+
+              <h3 class="text-3xl font-bold text-white mb-4">
+                Continuidad y Respaldo de Datos
+              </h3>
+              <p class="text-slate-300 text-base leading-relaxed mb-8">
+                Protegemos la información vital de tu negocio con políticas de
+                backup automatizadas y planes de recuperación ante desastres
+                (DRP) robustos, confiables y auditables.
+              </p>
+              <a
+                href="https://wa.me/51981199317"
+                class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors"
+              >
+                Habla con un experto
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="beneficios" class="relative py-24 bg-[#0a0f1d]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-white tracking-tight reveal"
+        >
+          Beneficios <span class="text-brand-turquoise">clave</span>
+        </h2>
+      </div>
+
+      <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
+        <div
+          class="group relative h-[450px] md:h-[500px] cursor-pointer"
+          data-tilt
+          data-tilt-max="5"
+          data-tilt-speed="400"
+          data-tilt-perspective="1000"
+        >
+          <img
+            src="../img/Gestion-it/Optimizacion.png"
+            alt="Code"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div
+            class="absolute inset-0 bg-brand-navy/80 group-hover:bg-brand-purple/70 transition-colors duration-500"
+          ></div>
+          <div class="absolute bottom-0 left-0 p-10 w-full">
+            <h3
+              class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4"
+            >
+              Reducción de tiempos de inactividad
+            </h3>
+            <p
+              class="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
+            >
+              Minimizamos las interrupciones operativas con soporte preventivo,
+              monitoreo constante y resolución ágil de incidencias críticas.
+            </p>
+            <p
+              class="text-brand-turquoise font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
+            >
+              Conoce más &rarr;
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="group relative h-[450px] md:h-[500px] cursor-pointer border-l border-r border-white/5"
+          data-tilt
+          data-tilt-max="5"
+          data-tilt-speed="400"
+          data-tilt-perspective="1000"
+        >
+          <img
+            src="../img/Gestion-it/Visibilidad.jpg"
+            alt="Cloud"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div
+            class="absolute inset-0 bg-brand-navy/80 group-hover:bg-brand-purple/70 transition-colors duration-500"
+          ></div>
+          <div class="absolute bottom-0 left-0 p-10 w-full">
+            <h3
+              class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4"
+            >
+              Visibilidad y control total
+            </h3>
+            <p
+              class="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
+            >
+              Toma decisiones estratégicas basadas en reportes de rendimiento,
+              inventarios actualizados y cumplimiento de acuerdos de nivel de
+              servicio (SLA).
+            </p>
+            <p
+              class="text-brand-turquoise font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
+            >
+              Conoce más &rarr;
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="relative py-24 overflow-hidden bg-brand-navy border-t border-white/5"
+    >
+      <div class="absolute inset-0 z-0 bg-black">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          class="w-full h-full object-cover opacity-70 mix-blend-screen"
+        >
+          <source
+            src="../videos/Desarrollo-Software/CallToAction.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-brand-navy/40"></div>
+      </div>
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 reveal"
+      >
+        <div class="w-full md:w-2/3">
+          <h2
+            class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight tracking-tight"
+          >
+            Eleva el estándar tecnológico de tu empresa
+          </h2>
+          <p class="text-slate-300 text-lg max-w-2xl">
+            Deja la carga técnica en manos de especialistas. Nos convertimos en
+            tu aliado estratégico para garantizar que tu entorno IT sea seguro,
+            escalable y esté siempre disponible.
+          </p>
+        </div>
+        <div class="w-full md:w-1/3 text-left md:text-right">
+          <a
+            href="#contacto"
+            class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-8 py-4 rounded-lg text-base font-bold transition-transform hover:scale-105 shadow-lg"
+          >
+            Habla con un experto
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-white relative">
+      <div
+        class="absolute inset-0 bg-gradient-to-tr from-brand-turquoise/5 via-white to-white z-0"
+      ></div>
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-8">
+        <h2
+          class="text-4xl md:text-5xp font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-turquoise to-brand-purple mb-12 tracking-tight reveal"
+        >
+          Preguntas frecuentes
+        </h2>
+
+        <div class="space-y-4 reveal">
+          <div
+            class="border border-brand-navy rounded-xl overflow-hidden transition-all duration-300 accordion-item"
+          >
+            <button
+              class="accordion-header w-full text-left px-6 py-5 bg-white hover:bg-slate-50 flex justify-between items-center focus:outline-none"
+            >
+              <span class="text-lg font-bold text-brand-navy"
+                >¿Cuál es el tiempo de respuesta promedio para un
+                incidente?</span
+              >
+              <i
+                class="ph-bold ph-plus text-xl text-brand-navy transition-transform duration-300 icon"
+              ></i>
+            </button>
+            <div
+              class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white px-6"
+            >
+              <p class="text-slate-600 pb-5 pt-2">
+                Nuestro equipo opera bajo estrictos Acuerdos de Nivel de
+                Servicio (SLA). Las incidencias críticas se atienden en cuestión
+                de minutos, garantizando que tu operación retome su curso con la
+                menor fricción posible.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="border border-brand-navy rounded-xl overflow-hidden transition-all duration-300 accordion-item"
+          >
+            <button
+              class="accordion-header w-full text-left px-6 py-5 bg-white hover:bg-slate-50 flex justify-between items-center focus:outline-none"
+            >
+              <span class="text-lg font-bold text-brand-navy"
+                >¿Ofrecen soporte remoto o también asistencia presencial?</span
+              >
+              <i
+                class="ph-bold ph-plus text-xl text-brand-navy transition-transform duration-300 icon"
+              ></i>
+            </button>
+            <div
+              class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white px-6"
+            >
+              <p class="text-slate-600 pb-5 pt-2">
+                Brindamos un modelo híbrido adaptado a las necesidades de tu
+                empresa. Resolvemos más del 80% de los casos de forma remota
+                para mayor agilidad, pero contamos con atención presencial
+                (on-site) para problemas de infraestructura física o hardware.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="border border-brand-navy rounded-xl overflow-hidden transition-all duration-300 accordion-item"
+          >
+            <button
+              class="accordion-header w-full text-left px-6 py-5 bg-white hover:bg-slate-50 flex justify-between items-center focus:outline-none"
+            >
+              <span class="text-lg font-bold text-brand-navy"
+                >¿Qué estándares utilizan para la gestión de servicios?</span
+              >
+              <i
+                class="ph-bold ph-plus text-xl text-brand-navy transition-transform duration-300 icon"
+              ></i>
+            </button>
+            <div
+              class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white px-6"
+            >
+              <p class="text-slate-600 pb-5 pt-2">
+                Basamos nuestros procesos en el marco de trabajo internacional
+                ITIL. Esto nos permite entregar un servicio estructurado,
+                predecible y enfocado en la mejora continua de tu organización.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="w-full relative z-10 leading-[0] bg-white -mt-[1px]">
+      <svg
+        viewBox="0 0 1440 120"
+        class="w-full h-auto block"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#070b19"
+          d="M0,60 C320,120 420,120 720,60 C1020,0 1120,0 1440,60 L1440,120 L0,120 Z"
+        ></path>
+      </svg>
+    </div>
+
+    <footer
+      id="contacto"
+      class="bg-[#070b19] pt-12 pb-8 relative z-10 -mt-[1px]"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 border-b border-white/10 pb-16"
+        >
+          <div class="lg:col-span-4 reveal reveal-left">
+            <div class="mb-6">
+              <span class="font-bold text-3xl text-white tracking-tight"
+                ><span class="text-brand-turquoise">Dijkstra</span></span
+              >
+            </div>
+            <p class="text-slate-400 text-sm leading-relaxed mb-8 pr-4">
+              Somos tu aliado estratégico en gestión TI. Con soluciones a la
+              medida, transformamos tu visión en operaciones eficientes.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="https://www.linkedin.com/company/dijkstrape"
+                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-navy hover:bg-brand-turquoise hover:text-white transition"
+                ><i class="ph-fill ph-linkedin-logo text-xl"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-navy hover:bg-brand-turquoise hover:text-white transition"
+                ><i class="ph-bold ph-instagram-logo text-xl"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-navy hover:bg-brand-turquoise hover:text-white transition"
+                ><i class="ph-fill ph-facebook-logo text-xl"></i
+              ></a>
+            </div>
+          </div>
+
+          <div
+            class="lg:col-span-3 space-y-6 pt-4 reveal reveal-left reveal-delay-100"
+          >
+            <div class="flex items-start gap-4">
+              <i class="ph-fill ph-map-pin text-white text-xl mt-1"></i>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Av. Santa Rosa 352 - Callao, Perú
+              </p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="ph-fill ph-phone text-white text-xl"></i>
+              <p class="text-slate-400 text-sm font-semibold">
+                +51 981 199 317
+              </p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="ph-fill ph-envelope-simple text-white text-xl"></i>
+              <p class="text-slate-400 text-sm font-semibold">
+                dijkstracomercial@gmail.com
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex flex-col md:flex-row justify-between items-center pt-8 text-xs text-slate-500"
+        >
+          <a
+            href="#"
+            class="hover:text-white transition font-semibold mb-4 md:mb-0"
+            >Política de Privacidad</a
+          >
+          <p>&copy; 2026. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <a
+      href="https://wa.me/51981199317"
+      target="_blank"
+      class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-transform duration-300 flex items-center justify-center w-14 h-14 p-0"
+    >
+      <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
+    </a>
+
+    <script src="../script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const header = document.getElementById("main-header");
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 20) {
+            header.classList.remove("bg-white", "text-brand-navy");
+            header.classList.add(
+              "bg-brand-navy/95",
+              "text-white",
+              "border-white/5",
+            );
+          } else {
+            header.classList.add("bg-white", "text-brand-navy");
+            header.classList.remove(
+              "bg-brand-navy/95",
+              "text-white",
+              "border-white/5",
+            );
+          }
+        });
+
+        const accordionHeaders = document.querySelectorAll(".accordion-header");
+        accordionHeaders.forEach((header) => {
+          header.addEventListener("click", () => {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector(".icon");
+
+            if (content.style.maxHeight) {
+              content.style.maxHeight = null;
+              icon.classList.replace("ph-minus", "ph-plus");
+              icon.style.transform = "rotate(0deg)";
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+              icon.classList.replace("ph-plus", "ph-minus");
+              icon.style.transform = "rotate(180deg)";
+            }
+          });
+        });
+
+        // Vanilla Tilt Init (Para el efecto 3D en Beneficios)
+        if (typeof VanillaTilt !== "undefined") {
+          VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 5,
+            speed: 400,
+            perspective: 1000,
+            scale: 1.02,
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
