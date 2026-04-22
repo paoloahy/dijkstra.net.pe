@@ -1,24 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-// 1. Interceptar clics en enlaces locales (que empiezan con #)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+// 1. Interceptar clics en enlaces con anclas (#) de forma inteligente
+    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            
-            // Si es solo un '#' vacío, lo ignoramos
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                // Previene que el navegador ponga el # en la URL
-                e.preventDefault(); 
+            // Obtenemos la ruta y el ancla exacta del enlace clickeado
+            const linkPath = this.pathname;
+            const currentPath = window.location.pathname;
+            const hash = this.hash;
+
+            // Si no hay hash o es solo '#', lo ignoramos
+            if (!hash || hash === '#') return;
+
+            // Comprobamos si el enlace apunta a la misma página en la que estamos
+            // (Esto cubre los casos donde la ruta es "/" o "/index.html")
+            const isSamePage = linkPath === currentPath || 
+                               (currentPath === '/' && linkPath === '/index.html') || 
+                               (currentPath === '/index.html' && linkPath === '/');
+
+            if (isSamePage) {
+                const targetElement = document.querySelector(hash);
                 
-                // Hace el scroll suave hacia la sección
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                if (targetElement) {
+                    // Prevenimos el comportamiento nativo (que pone el # en la URL)
+                    e.preventDefault(); 
+                    
+                    // Hacemos el scroll suave
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             }
         });
     });
