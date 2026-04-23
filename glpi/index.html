@@ -830,9 +830,7 @@
 
     <script src="../script.js"></script>
     <script>
-      // Scripts para Header y Acordeón
       document.addEventListener("DOMContentLoaded", () => {
-        // Header Color
         const header = document.getElementById("main-header");
         window.addEventListener("scroll", () => {
           if (window.scrollY > 20) {
@@ -852,7 +850,6 @@
           }
         });
 
-        // FAQ Accordion
         const accordionHeaders = document.querySelectorAll(".accordion-header");
         accordionHeaders.forEach((header) => {
           header.addEventListener("click", () => {
@@ -871,43 +868,13 @@
           });
         });
 
-        // Mobile Menu Toggles
-        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-        const closeMenuBtn = document.getElementById("close-menu-btn");
-        const mobileMenu = document.getElementById("mobile-menu");
-        const mobileOverlay = document.getElementById("mobile-overlay");
-
-        if (mobileMenuBtn) {
-          mobileMenuBtn.addEventListener("click", () => {
-            mobileMenu.classList.remove("translate-x-full");
-            mobileOverlay.classList.remove("hidden");
-            setTimeout(() => mobileOverlay.classList.remove("opacity-0"), 10);
-          });
-        }
-
-        if (closeMenuBtn) {
-          closeMenuBtn.addEventListener("click", () => {
-            mobileMenu.classList.add("translate-x-full");
-            mobileOverlay.classList.add("opacity-0");
-            setTimeout(() => mobileOverlay.classList.add("hidden"), 300);
-          });
-        }
-
-        const mobileServiciosBtn = document.getElementById(
-          "mobile-servicios-btn",
-        );
-        const mobileServiciosMenu = document.getElementById(
-          "mobile-servicios-menu",
-        );
-        const mobileServiciosIcon = document.getElementById(
-          "mobile-servicios-icon",
-        );
-
-        if (mobileServiciosBtn) {
-          mobileServiciosBtn.addEventListener("click", () => {
-            mobileServiciosMenu.classList.toggle("hidden");
-            mobileServiciosMenu.classList.toggle("flex");
-            mobileServiciosIcon.classList.toggle("rotate-180");
+        // Vanilla Tilt Init (Para el efecto 3D en Beneficios)
+        if (typeof VanillaTilt !== "undefined") {
+          VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 5,
+            speed: 400,
+            perspective: 1000,
+            scale: 1.02,
           });
         }
       });
