@@ -1,949 +1,475 @@
-<!doctype html>
-<html lang="es" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soporte Total | Dijkstra</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: { sans: ["Outfit", "sans-serif"] },
-            colors: {
-              brand: {
-                navy: "#0b132b",
-                card: "#152042",
-                turquoise: "#06b6d4",
-                purple: "#4f46e5",
-              },
-            },
-          },
-        },
-      };
-    </script>
-
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-    <link rel="stylesheet" href="../styles.css" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-      /* Estilos específicos para los logos del Tech Stack (Fondo Blanco) */
-      .tech-logo {
-        height: 3rem; /* 48px */
-        width: auto;
-        filter: grayscale(100%);
-        opacity: 0.5;
-        transition: all 0.4s ease;
-      }
-      .tech-logo:hover {
-        filter: grayscale(0%);
-        opacity: 1;
-        transform: scale(1);
-      }
-    </style>
-  </head>
-  <body class="bg-white text-slate-800 antialiased overflow-x-hidden">
-    <header
-      id="main-header"
-      class="fixed w-full top-0 z-50 bg-white text-brand-navy border-b border-slate-200 transition-all duration-300 h-20 flex items-center"
-    >
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-between items-center relative z-50"
-      >
-        <a href="https://dijkstra.net.pe/" class="flex items-center">
-          <span
-            class="font-bold text-2xl tracking-tight transition-colors duration-300"
-            >Dijkstra<span class="text-brand-turquoise"></span
-          ></span>
-        </a>
-
-        <nav class="hidden md:flex space-x-8 items-center">
-          <a
-            href="https://dijkstra.net.pe/#nosotros"
-            class="text-sm font-medium hover:text-brand-turquoise transition-colors duration-300"
-            >Sobre Nosotros</a
-          >
-
-          <div class="relative group py-6">
-            <a
-              href="https://dijkstra.net.pe/#servicios"
-              class="text-sm font-medium hover:text-brand-turquoise transition-colors duration-300 flex items-center gap-1"
-            >
-              Servicios
-              <i
-                class="ph-bold ph-caret-down text-[10px] transition-transform duration-300 group-hover:rotate-180"
-              ></i>
-            </a>
-
-            <div
-              class="absolute top-full left-0 w-64 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50"
-            >
-              <div
-                class="bg-white rounded-xl shadow-2xl border border-slate-100 p-2 flex flex-col"
-              >
-                <a
-                  href="/software/"
-                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
-                >
-                  <i
-                    class="ph-fill ph-code-block text-brand-turquoise text-lg"
-                  ></i>
-                  Desarrollo de Software
-                </a>
-                <a
-                  href="/gestionti/"
-                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
-                >
-                  <i
-                    class="ph-fill ph-headset text-brand-turquoise text-lg"
-                  ></i>
-                  Gestión de Servicios TI
-                </a>
-                <a
-                  href="/soportetotal/"
-                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
-                >
-                  <i
-                    class="ph-fill ph-rocket-launch text-brand-turquoise text-lg"
-                  ></i>
-                  Soporte Total
-                </a>
-                <a
-                  href="/glpi/"
-                  class="px-4 py-3 text-sm text-slate-700 hover:text-brand-turquoise hover:bg-slate-50 rounded-lg transition-colors font-medium flex items-center gap-3"
-                >
-                  <i
-                    class="ph-fill ph-chart-bar text-brand-turquoise text-lg"
-                  ></i>
-                  Consultoría GLPI
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <a
-            href="#contacto"
-            class="text-sm font-medium hover:text-brand-turquoise transition-colors duration-300"
-            >Contacto</a
-          >
-
-          <a
-            href="https://wa.me/51981199317"
-            class="bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors shadow-lg"
-          >
-            Contáctanos
-          </a>
-        </nav>
-
-        <div class="md:hidden flex items-center">
-          <button
-            id="mobile-menu-btn"
-            class="hover:text-brand-turquoise focus:outline-none p-2 transition-colors duration-300"
-          >
-            <i id="mobile-menu-icon" class="ph-bold ph-list text-3xl"></i>
-          </button>
-        </div>
-      </div>
-    </header>
-    <!-- Fin de Header -->
-
-    <div
-      id="mobile-overlay"
-      class="fixed inset-0 bg-brand-navy/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"
-    ></div>
-
-    <div
-      id="mobile-menu"
-      class="fixed top-0 right-0 w-[85%] max-w-sm h-full bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col"
-    >
-      <div class="p-6 mt-4">
-        <button
-          id="close-menu-btn"
-          class="w-full flex items-center justify-between border-2 border-brand-navy rounded-md px-4 py-2 text-brand-navy font-bold hover:bg-slate-50 transition"
-        >
-          <span class="text-base">Cerrar</span>
-          <i class="ph-bold ph-x text-lg"></i>
-        </button>
-      </div>
-
-      <nav class="flex flex-col px-8 py-4 space-y-4 flex-grow overflow-y-auto">
-        <a
-          href="https://dijkstra.net.pe/#nosotros"
-          class="mobile-link text-lg font-bold text-brand-navy hover:text-brand-turquoise transition py-2"
-          >Sobre Nosotros</a
-        >
-
-        <div>
-          <button
-            id="mobile-servicios-btn"
-            class="w-full text-lg font-bold text-brand-navy flex justify-between items-center hover:text-brand-turquoise transition py-2"
-          >
-            Servicios
-            <i
-              id="mobile-servicios-icon"
-              class="ph-bold ph-caret-down bg-slate-100 p-1.5 rounded-md text-sm transition-transform duration-300"
-            ></i>
-          </button>
-
-          <div
-            id="mobile-servicios-menu"
-            class="hidden flex-col pl-4 pt-3 pb-2 space-y-4 border-l-2 border-slate-100 mt-2"
-          >
-            <a
-              href="/software/"
-              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
-            >
-              <i class="ph-fill ph-code-block text-brand-turquoise text-lg"></i>
-              Desarrollo de Software
-            </a>
-            <a
-              href="/gestionti/"
-              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
-            >
-              <i class="ph-fill ph-headset text-brand-turquoise text-lg"></i>
-              Gestión de Servicios TI
-            </a>
-            <a
-              href="/soportetotal/"
-              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
-            >
-              <i
-                class="ph-fill ph-rocket-launch text-brand-turquoise text-lg"
-              ></i>
-              Soporte Total
-            </a>
-            <a
-              href="/glpi/"
-              class="mobile-link text-base text-slate-600 hover:text-brand-turquoise flex items-center gap-3"
-            >
-              <i class="ph-fill ph-chart-bar text-brand-turquoise text-lg"></i>
-              Consultoría GLPI
-            </a>
-          </div>
-        </div>
-
-        <a
-          href="#contacto"
-          class="mobile-link text-lg font-bold text-brand-navy hover:text-brand-turquoise transition py-2"
-          >Contacto</a
-        >
-      </nav>
-    </div>
-
-    <section
-      class="relative pt-40 pb-24 lg:pt-48 lg:pb-32 text-left overflow-hidden min-h-[85vh] flex items-center bg-white"
-    >
-      <div class="absolute inset-0 z-0">
-        <video
-          autoplay
-          loop
-          muted
-          playsinline
-          class="w-full h-full object-cover"
-        >
-          <source
-            src="../videos/Soporte-Total/Soporte-Total.mp4"
-            type="video/mp4"
-          />
-        </video>
-        <div
-          class="absolute inset-0 bg-gradient-to-b from-transparent from-50% to-white"
-        ></div>
-      </div>
-
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div class="w-full md:w-[60%] reveal">
-          <h1
-            class="text-5xl md:text-6xl lg:text-7xl text-white font-bold text-brand-navy leading-[1.1] mb-6 tracking-tight"
-          >
-            Soporte Total
-          </h1>
-          <p
-            class="text-white text-lg md:text-xl text-slate-600 mb-10 max-w-md leading-relaxed font-medium"
-          >
-            Tu tranquilidad tecnológica sin moverte de casa. Ofrecemos
-            diagnósticos precisos, instalación de software y optimización de
-            rendimiento 100% online, para que tu computadora funcione siempre al
-            máximo y sin interrupciones.
-          </p>
-          <a
-            href="#contacto"
-            class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-turquoise to-brand-purple text-white px-8 py-3.5 rounded-lg text-base font-bold transition-transform hover:scale-105 shadow-[0_10px_25px_rgba(79,70,229,0.3)]"
-          >
-            Solicitar asistencia ahora
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="soluciones" class="relative py-24 bg-white -mt-[1px]">
-<div class="absolute inset-0 z-0 bg-[url('img/Gestion-it/fondo-vertical-textura-2-1.jpg')] bg-cover bg-top opacity-60"></div>
-
-      <div
-        class="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-white to-transparent z-0"
-      ></div>
-
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="flex flex-col lg:flex-row gap-16">
-          <div
-            class="w-full lg:w-5/12 reveal reveal-left lg:sticky lg:top-32 lg:self-start"
-          >
-            <div>
-              <h2
-                class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-turquoise to-brand-purple leading-tight mb-6 tracking-tight"
-              >
-                Soluciones ágiles a distancia para tu día a día
-              </h2>
-              <p class="text-slate-600 text-lg leading-relaxed">
-                Asistencia técnica profesional sin importar dónde estés. Como
-                expertos,nos enfocamos en resolver tus problemas de software,
-                lentitud y configuración de manera inmediata mediante una
-                conexión remota segura.
-              </p>
-            </div>
-          </div>
-
-          <div class="w-full lg:w-7/12 space-y-8">
-            <div
-              class="bg-[#182650] rounded-3xl p-10 shadow-xl reveal reveal-right"
-            >
-              <i
-                class="ph-bold ph-wrench text-4xl text-white mb-4 group-hover:scale-110 transition-transform"
-              ></i>
-
-              <h3 class="text-3xl font-bold text-white mb-4">
-                Diagnóstico y Resolución Remota
-              </h3>
-              <p class="text-slate-300 text-base leading-relaxed mb-8">
-                Identificación rápida de errores en tu sistema operativo,
-                ventanas emergentes molestas o lentitud. Solucionamos las fallas
-                técnicas en tiempo real directamente en tu pantalla.
-              </p>
-              <a
-                href="https://wa.me/51981199317"
-                class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors"
-              >
-                Contactar por WhatsApp
-              </a>
-            </div>
-
-            <div
-              class="bg-[#182650] rounded-3xl p-10 shadow-xl reveal reveal-right"
-            >
-              <i
-                class="ph-bold ph-puzzle-piece text-4xl text-white mb-4 group-hover:scale-110 transition-transform"
-              ></i>
-
-              <h3 class="text-3xl font-bold text-white mb-4">
-                Instalación de Software
-              </h3>
-              <p class="text-slate-300 text-base leading-relaxed mb-8">
-                Asistencia guiada o remota para instalar programas, configurar
-                herramientas de teletrabajo, instalar drivers, activar licencias
-                y configurar tu correo electrónico sin complicaciones.
-              </p>
-              <a
-                href="https://wa.me/51981199317"
-                class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors"
-              >
-                Contactar por WhatsApp
-              </a>
-            </div>
-
-            <div
-              class="bg-[#182650] rounded-3xl p-10 shadow-xl reveal reveal-right"
-            >
-              <i
-                class="ph-bold ph-arrows-clockwise text-4xl text-white mb-4 group-hover:scale-110 transition-transform"
-              ></i>
-
-              <h3 class="text-3xl font-bold text-white mb-4">
-                Optimización de Rendimiento
-              </h3>
-              <p class="text-slate-300 text-base leading-relaxed mb-8">
-                Limpieza profunda del sistema, eliminación de virus/malware,
-                desinstalación de programas basura y ajustes de configuración
-                para que tu PC recupere su velocidad original.
-              </p>
-              <a
-                href="https://wa.me/51981199317"
-                class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors"
-              >
-                Contactar por WhatsApp
-              </a>
-            </div>
-
-            <div
-              class="bg-[#182650] rounded-3xl p-10 shadow-xl reveal reveal-right"
-            >
-              <i
-                class="ph-bold ph-chalkboard-teacher text-4xl text-white mb-4 group-hover:scale-110 transition-transform"
-              ></i>
-
-              <h3 class="text-3xl font-bold text-white mb-4">
-                Consultoría Tecnológica
-              </h3>
-              <p class="text-slate-300 text-base leading-relaxed mb-8">
-                Orientación personalizada para resolver dudas específicas sobre
-                el uso de tus aplicaciones, o asesoría para elegir las mejores
-                herramientas digitales para tu trabajo o estudio.
-              </p>
-              <a
-                href="https://wa.me/51981199317"
-                class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors"
-              >
-                Contactar por WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="beneficios" class="relative py-24 bg-[#0a0f1d]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12">
-        <h2
-          class="text-4xl md:text-5xl font-bold text-white tracking-tight reveal"
-        >
-          Beneficios <span class="text-brand-turquoise">clave</span>
-        </h2>
-      </div>
-
-      <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-0">
-        <div
-          class="group relative h-[450px] md:h-[500px] cursor-pointer"
-          data-tilt
-          data-tilt-max="5"
-          data-tilt-speed="400"
-          data-tilt-perspective="1000"
-        >
-          <img
-            src="../img/Soporte-total/velocity.jpg"
-            alt="Code"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div
-            class="absolute inset-0 bg-brand-navy/80 group-hover:bg-brand-purple/70 transition-colors duration-500"
-          ></div>
-          <div class="absolute bottom-0 left-0 p-10 w-full">
-            <h3
-              class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4"
-            >
-              Asistencia inmediata y cómoda
-            </h3>
-            <p
-              class="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
-            >
-              Olvídate de cargar tu equipo a un taller técnico. Nos conectamos
-              de forma rápida bajo estrictos protocolos de privacidad para
-              resolver tu problema al instante.
-            </p>
-            <p
-              class="text-brand-turquoise font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
-            >
-              Conoce más &rarr;
-            </p>
-          </div>
-        </div>
-
-        <div
-          class="group relative h-[450px] md:h-[500px] cursor-pointer border-l border-r border-white/5"
-          data-tilt
-          data-tilt-max="5"
-          data-tilt-speed="400"
-          data-tilt-perspective="1000"
-        >
-          <img
-            src="../img/Soporte-total/atencion-personalizada.webp"
-            alt="Cloud"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div
-            class="absolute inset-0 bg-brand-navy/80 group-hover:bg-brand-purple/70 transition-colors duration-500"
-          ></div>
-          <div class="absolute bottom-0 left-0 p-10 w-full">
-            <h3
-              class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4"
-            >
-              Trato 100% personalizado
-            </h3>
-            <p
-              class="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
-            >
-              Hablas directamente con el experto. Sin intermediarios, sin
-              tickets de espera infinitos: respuestas claras, humanas y
-              soluciones hechas a tu medida.
-            </p>
-            <p
-              class="text-brand-turquoise font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
-            >
-              Conoce más &rarr;
-            </p>
-          </div>
-        </div>
-
-        <div
-          class="group relative h-[450px] md:h-[500px] cursor-pointer"
-          data-tilt
-          data-tilt-max="5"
-          data-tilt-speed="400"
-          data-tilt-perspective="1000"
-        >
-          <img
-            src="../img/Soporte-total/transparencia.jpg"
-            alt="Security"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div
-            class="absolute inset-0 bg-brand-navy/80 group-hover:bg-brand-purple/70 transition-colors duration-500"
-          ></div>
-          <div class="absolute bottom-0 left-0 p-10 w-full">
-            <h3
-              class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4"
-            >
-              Transparencia total
-            </h3>
-            <p
-              class="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
-            >
-              Diagnósticos claros y tarifas honestas desde el primer minuto.
-              Paga solo por el soporte de software y la optimización de tu
-              sistema, sin sorpresas.
-            </p>
-            <p
-              class="text-brand-turquoise font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300"
-            >
-              Conoce más &rarr;
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section
-      id="herramientas-software"
-      class="relative py-20 bg-white overflow-hidden"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16">
-        <div class="w-full md:w-2/3 reveal">
-          <h2
-            class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-turquoise to-brand-purple mb-6 tracking-tight leading-tight"
-          >
-            Software y herramientas a tu alcance
-          </h2>
-          <p class="text-slate-600 text-lg leading-relaxed font-medium">
-            Instalación, configuración y soporte para los programas esenciales
-            de tu día a día. Garantizamos que tus herramientas de trabajo,
-            estudio y seguridad funcionen sin problemas.
-          </p>
-        </div>
-      </div>
-
-      <div class="w-full relative z-10 reveal reveal-delay-100 py-8">
-        <div
-          class="marquee-wrapper"
-          style="
-            mask-image: linear-gradient(
-              to right,
-              transparent,
-              black 10%,
-              black 90%,
-              transparent
-            );
-            -webkit-mask-image: linear-gradient(
-              to right,
-              transparent,
-              black 10%,
-              black 90%,
-              transparent
-            );
-          "
-        >
-          <div
-            class="marquee-track flex items-center justify-around gap-16 px-8"
-          >
-            <img
-              src="../img/Soporte-total/Iconos/micorsoft-icono.png"
-              alt="Windows"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/office-icono.svg"
-              alt="Microsoft Office"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/google-icono.svg"
-              alt="Google Chrome"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/acrobat-icono.svg"
-              alt="Adobe Acrobat"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/anydesk-icono.jpg"
-              alt="Anydesk"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/lenovo-icono.png"
-              alt="Lenovo"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/hp-icono.png"
-              alt="HP"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/firefox.svg"
-              alt="Firefox"
-              class="tech-logo"
-            />
-          </div>
-
-          <div
-            class="marquee-track flex items-center justify-around gap-16 px-8"
-          >
-            <img
-              src="../img/Soporte-total/Iconos/micorsoft-icono.png"
-              alt="Windows"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/office-icono.svg"
-              alt="Microsoft Office"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/google-icono.svg"
-              alt="Google Chrome"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/acrobat-icono.svg"
-              alt="Adobe Acrobat"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/anydesk-icono.jpg"
-              alt="Anydesk"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/lenovo-icono.png"
-              alt="Lenovo"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/hp-icono.png"
-              alt="HP"
-              class="tech-logo"
-            />
-            <img
-              src="../img/Soporte-total/Iconos/firefox.svg"
-              alt="Firefox"
-              class="tech-logo"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section
-      class="relative py-24 overflow-hidden bg-brand-navy border-t border-white/5"
-    >
-      <div class="absolute inset-0 z-0 bg-black">
-        <video
-          autoplay
-          loop
-          muted
-          playsinline
-          class="w-full h-full object-cover opacity-70 mix-blend-screen"
-        >
-          <source
-            src="../videos/Desarrollo-Software/CallToAction.mp4"
-            type="video/mp4"
-          />
-        </video>
-        <div class="absolute inset-0 bg-brand-navy/40"></div>
-      </div>
-
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 reveal"
-      >
-        <div class="w-full md:w-2/3">
-          <h2
-            class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight tracking-tight"
-          >
-            ¿Tu PC va lenta o tienes un error de software?
-          </h2>
-          <p class="text-slate-300 text-lg max-w-2xl">
-            No dejes que la frustración tecnológica detenga tu trabajo o tus
-            estudios. Obtén soporte rápido, seguro y profesional directamente en
-            la pantalla de tu computadora.
-          </p>
-        </div>
-        <div class="w-full md:w-1/3 text-left md:text-right">
-          <a
-            href="#contacto"
-            class="inline-block bg-brand-turquoise hover:bg-[#0891b2] text-white px-8 py-4 rounded-lg text-base font-bold transition-transform hover:scale-105 shadow-lg"
-          >
-            Habla con un experto
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="py-24 bg-white relative">
-      <div
-        class="absolute inset-0 bg-gradient-to-tr from-brand-turquoise/5 via-white to-white z-0"
-      ></div>
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-8">
-        <h2
-          class="text-4xl md:text-5xp font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-turquoise to-brand-purple mb-12 tracking-tight reveal"
-        >
-          Preguntas frecuentes
-        </h2>
-
-        <div class="space-y-4 reveal">
-          <div
-            class="border border-brand-navy rounded-xl overflow-hidden transition-all duration-300 accordion-item"
-          >
-            <button
-              class="accordion-header w-full text-left px-6 py-5 bg-white hover:bg-slate-50 flex justify-between items-center focus:outline-none"
-            >
-              <span class="text-lg font-bold text-brand-navy"
-                >¿Cómo funciona exactamente el soporte remoto?</span
-              >
-              <i
-                class="ph-bold ph-plus text-xl text-brand-navy transition-transform duration-300 icon"
-              ></i>
-            </button>
-            <div
-              class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white px-6"
-            >
-              <p class="text-slate-600 pb-5 pt-2">
-                Es muy sencillo y seguro. Utilizamos programas de asistencia
-                remota reconocidos (como AnyDesk o TeamViewer). Tú nos
-                proporcionas un código temporal de acceso, lo que nos permite
-                ver tu pantalla y manejar el mouse para reparar tu software
-                mientras tú observas todo el proceso.
-              </p>
-            </div>
-          </div>
-
-          <div
-            class="border border-brand-navy rounded-xl overflow-hidden transition-all duration-300 accordion-item"
-          >
-            <button
-              class="accordion-header w-full text-left px-6 py-5 bg-white hover:bg-slate-50 flex justify-between items-center focus:outline-none"
-            >
-              <span class="text-lg font-bold text-brand-navy"
-                >¿Reparan pantallas rotas, equipos que no encienden o recuperan
-                archivos perdidos?</span
-              >
-              <i
-                class="ph-bold ph-plus text-xl text-brand-navy transition-transform duration-300 icon"
-              ></i>
-            </button>
-            <div
-              class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white px-6"
-            >
-              <p class="text-slate-600 pb-5 pt-2">
-                No. Nuestros servicios de "Soporte Total" son 100% online y
-                están enfocados exclusivamente en software (sistemas operativos,
-                programas, optimización y virus). No realizamos reparaciones
-                físicas de hardware, cambios de piezas, ni servicios de
-                recuperación de archivos borrados o discos dañados.
-              </p>
-            </div>
-          </div>
-
-          <div
-            class="border border-brand-navy rounded-xl overflow-hidden transition-all duration-300 accordion-item"
-          >
-            <button
-              class="accordion-header w-full text-left px-6 py-5 bg-white hover:bg-slate-50 flex justify-between items-center focus:outline-none"
-            >
-              <span class="text-lg font-bold text-brand-navy"
-                >¿Es segura la conexión remota a mi computadora?</span
-              >
-              <i
-                class="ph-bold ph-plus text-xl text-brand-navy transition-transform duration-300 icon"
-              ></i>
-            </button>
-            <div
-              class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white px-6"
-            >
-              <p class="text-slate-600 pb-5 pt-2">
-                Totalmente segura. El acceso remoto requiere tu autorización
-                explícita para cada sesión. Tú estarás viendo cada movimiento
-                que hagamos en tu pantalla y tienes el poder de finalizar la
-                conexión en cualquier momento con un solo clic. Además, no se
-                realizan cambios sin explicártelos previamente.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="w-full relative z-10 leading-[0] bg-white -mt-[1px]">
-      <svg
-        viewBox="0 0 1440 120"
-        class="w-full h-auto block"
-        preserveAspectRatio="none"
-      >
-        <path
-          fill="#070b19"
-          d="M0,60 C320,120 420,120 720,60 C1020,0 1120,0 1440,60 L1440,120 L0,120 Z"
-        ></path>
-      </svg>
-    </div>
-
-    <footer
-      id="contacto"
-      class="bg-[#070b19] pt-12 pb-8 relative z-10 -mt-[1px]"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          class="grid grid-cols-1 lg:grid-cols-12 gap-12 border-b border-white/10 pb-16"
-        >
-          <div class="lg:col-span-4 reveal reveal-left">
-            <div class="mb-6">
-              <span class="font-bold text-3xl text-white tracking-tight"
-                ><span class="text-brand-turquoise">Dijkstra</span></span
-              >
-            </div>
-            <p class="text-slate-400 text-sm leading-relaxed mb-8 pr-4">
-              Somos tu aliado estratégico en gestión TI. Con soluciones a la
-              medida, transformamos tu visión en operaciones eficientes.
-            </p>
-            <div class="flex space-x-4">
-              <a
-                href="https://www.linkedin.com/company/dijkstrape"
-                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-navy hover:bg-brand-turquoise hover:text-white transition"
-                ><i class="ph-fill ph-linkedin-logo text-xl"></i
-              ></a>
-              <a
-                href="#"
-                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-navy hover:bg-brand-turquoise hover:text-white transition"
-                ><i class="ph-bold ph-instagram-logo text-xl"></i
-              ></a>
-              <a
-                href="#"
-                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-navy hover:bg-brand-turquoise hover:text-white transition"
-                ><i class="ph-fill ph-facebook-logo text-xl"></i
-              ></a>
-            </div>
-          </div>
-
-          <div
-            class="lg:col-span-3 space-y-6 pt-4 reveal reveal-left reveal-delay-100"
-          >
-            <div class="flex items-start gap-4">
-              <i class="ph-fill ph-map-pin text-white text-xl mt-1"></i>
-              <p class="text-slate-400 text-sm leading-relaxed">
-                Av. Santa Rosa 352 - Callao, Perú
-              </p>
-            </div>
-            <div class="flex items-center gap-4">
-              <i class="ph-fill ph-phone text-white text-xl"></i>
-              <p class="text-slate-400 text-sm font-semibold">
-                +51 981 199 317
-              </p>
-            </div>
-            <div class="flex items-center gap-4">
-              <i class="ph-fill ph-envelope-simple text-white text-xl"></i>
-              <p class="text-slate-400 text-sm font-semibold">
-                dijkstracomercial@gmail.com
-              </p>
-            </div>
-          </div>
-        </div>
-        <div
-          class="flex flex-col md:flex-row justify-between items-center pt-8 text-xs text-slate-500"
-        >
-          <a
-            href="#"
-            class="hover:text-white transition font-semibold mb-4 md:mb-0"
-            >Política de Privacidad</a
-          >
-          <p>&copy; 2026. Todos los derechos reservados.</p>
-        </div>
-      </div>
-    </footer>
-
-    <a
-      href="https://wa.me/51981199317"
-      target="_blank"
-      class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-transform duration-300 flex items-center justify-center w-14 h-14 p-0"
-    >
-      <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
-    </a>
-
-    <script src="../script.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const header = document.getElementById("main-header");
-        window.addEventListener("scroll", () => {
-          if (window.scrollY > 20) {
-            header.classList.remove("bg-white", "text-brand-navy");
-            header.classList.add(
-              "bg-brand-navy/95",
-              "text-white",
-              "border-white/5",
-            );
-          } else {
-            header.classList.add("bg-white", "text-brand-navy");
-            header.classList.remove(
-              "bg-brand-navy/95",
-              "text-white",
-              "border-white/5",
-            );
-          }
-        });
-
-        const accordionHeaders = document.querySelectorAll(".accordion-header");
-        accordionHeaders.forEach((header) => {
-          header.addEventListener("click", () => {
-            const content = header.nextElementSibling;
-            const icon = header.querySelector(".icon");
-
-            if (content.style.maxHeight) {
-              content.style.maxHeight = null;
-              icon.classList.replace("ph-minus", "ph-plus");
-              icon.style.transform = "rotate(0deg)";
-            } else {
-              content.style.maxHeight = content.scrollHeight + "px";
-              icon.classList.replace("ph-plus", "ph-minus");
-              icon.style.transform = "rotate(180deg)";
-            }
-          });
-        });
-
-        // Vanilla Tilt Init (Para el efecto 3D en Beneficios)
-        if (typeof VanillaTilt !== "undefined") {
-          VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-            max: 5,
-            speed: 400,
-            perspective: 1000,
-            scale: 1.02,
-          });
+        /* --- TACTICAL VARIABLES --- */
+        :root[data-theme="dark"] {
+            --bg-color: #050609; 
+            --text-color: #c5c6c7;
+            --primary: #00ffcc; 
+            --secondary: #ff00ff; 
+            --accent: #fcee0a; 
+            --hud-bg: rgba(0, 20, 20, 0.85); 
+            --inner-bg: #000000;
+            --box-highlight: rgba(0, 255, 204, 0.1);
+            --text-box-bg: rgba(0, 0, 0, 0.6);
+            --success: #00ff00; 
+            --danger: #ff3333; 
+            --glow: rgba(0, 255, 204, 0.3);
+            --border-style: rgba(0, 255, 204, 0.5);
         }
-      });
+
+        :root[data-theme="light"] {
+            --bg-color: #e4e7eb; 
+            --text-color: #2c3e50;
+            --primary: #0056b3; 
+            --secondary: #d35400; 
+            --accent: #0056b3; 
+            --hud-bg: rgba(255, 255, 255, 0.95); 
+            --inner-bg: #f8f9fa; 
+            --box-highlight: rgba(0, 86, 179, 0.05);
+            --text-box-bg: rgba(255, 255, 255, 0.8);
+            --success: #009900; 
+            --danger: #d90429; 
+            --glow: rgba(0, 86, 179, 0.2);
+            --border-style: rgba(0, 86, 179, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair !important; transition: background 0.3s, color 0.3s, border 0.3s, text-shadow 0.3s; }
+        body { font-family: 'Share Tech Mono', monospace; background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
+
+        body::before {
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%); z-index: 1000; background-size: 100% 4px; pointer-events: none; opacity: 0.5;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px;}
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--secondary); box-shadow: 0 0 5px var(--secondary); }
+
+        .tech-corner { position: absolute; width: 15px; height: 15px; border: 2px solid var(--primary); z-index: 5; pointer-events: none;}
+        .top-left { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .top-right { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .bot-left { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .bot-right { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        #boot-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; color: #00ffcc; z-index: 9999; display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; font-size: 1.2rem; }
+        .boot-line { margin-bottom: 5px; opacity: 0; animation: fadeIn 0.1s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        #circuit-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -10; opacity: 0.3; }
+
+        .btn-action { background: var(--accent); color: #fff; padding: 12px 25px; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; text-decoration: none; text-align: center; transition: 0.2s; position: relative; overflow: hidden; display: inline-block;}
+        :root[data-theme="dark"] .btn-action { color: #000; } 
+        .btn-action:hover { background: var(--text-color); color: var(--bg-color); box-shadow: 0 0 15px var(--text-color); transform: translateY(-2px); }
+
+        .btn-consult { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 8px 15px; font-size: 0.8rem; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; display: inline-block; margin-top: 10px; transition: 0.3s; width: 100%; text-align: center;}
+        .btn-consult:hover { background: var(--primary); color: var(--hud-bg); box-shadow: 0 0 10px var(--glow); }
+
+        #ticket-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 500px; background: var(--hud-bg); border: 2px solid var(--primary); padding: 30px; z-index: 2000; box-shadow: 0 0 50px var(--glow); clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px); }
+        .modal-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index: 1999; backdrop-filter: blur(5px);}
+        input, textarea { width: 100%; background: var(--inner-bg); border: 1px solid var(--border-style); color: var(--text-color); padding: 10px; margin: 8px 0; font-family: 'Share Tech Mono'; font-size: 0.9rem;}
+        input:focus, textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 10px var(--glow); }
+
+        .hud-wrapper { flex-grow: 1; display: flex; flex-direction: column; padding: 15px; z-index: 10; position: relative; max-width: 1600px; margin: 0 auto; width: 100%;}
+
+        header { 
+            display: flex; justify-content: space-between; align-items: center; padding: 10px 30px; 
+            background: var(--hud-bg); border: 1px solid var(--primary); box-shadow: 0 0 15px var(--glow);
+            clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 20px 100%); margin-bottom: 25px; position: relative; gap: 10px; flex-wrap: wrap;
+        }
+        .logo { font-family: 'Orbitron'; font-weight: 900; color: var(--primary); text-shadow: 0 0 8px var(--glow); cursor: pointer; user-select: none;}
+        .header-controls { display: flex; gap: 10px; align-items: center;}
+        .ctrl-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; font-family: 'Orbitron'; cursor: pointer; font-size: 0.8rem;}
+        .ctrl-btn:hover, .ctrl-btn.active { background: var(--primary); color: var(--hud-bg); }
+
+        .main-viewport { display: grid; grid-template-columns: 320px 1fr 320px; gap: 20px; flex-grow: 1; align-items: stretch;}
+
+        .hud-panel { background: var(--hud-bg); border: 1px solid var(--border-style); position: relative; display: flex; flex-direction: column; backdrop-filter: blur(5px); }
+        .panel-header { font-family: 'Orbitron'; color: var(--secondary); padding: 10px 15px; font-size: 0.9rem; border-bottom: 1px dashed var(--border-style); letter-spacing: 1px;}
+        .panel-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}
+
+        .side-panel { clip-path: polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%); }
+        .left-col, .right-col { display: flex; flex-direction: column; gap: 20px; }
+        
+        .tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+        .tech-btn { background: var(--inner-bg); border: 1px solid var(--border-style); color: var(--text-color); padding: 12px 5px; font-size: 1.5rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.2s;}
+        .tech-btn span { font-size: 0.7rem; font-family: 'Share Tech Mono';}
+        .tech-btn:hover, .tech-btn.active { background: var(--primary); color: var(--hud-bg); box-shadow: 0 0 10px var(--glow); transform: translateY(-3px); }
+        
+        .terminal-display { background: var(--inner-bg); border: 1px solid var(--border-style); padding: 10px; color: var(--primary); font-size: 0.85rem; min-height: 150px; position: relative; flex-grow: 1;}
+
+        /* --- PANTALLA HOLOGRÁFICA (ARSENAL) --- */
+        .hologram-display { 
+            display: flex; justify-content: center; align-items: center; 
+            height: 120px; 
+            background: var(--inner-bg); border: 1px solid var(--border-style); 
+            box-shadow: inset 0 0 20px var(--glow); position: relative; overflow: hidden;
+        }
+        .hologram-display::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,204,0.05) 2px, rgba(0,255,204,0.05) 4px);
+            pointer-events: none;
+        }
+        #holo-icon { font-size: 4rem; color: var(--primary); text-shadow: 0 0 15px var(--primary); transition: opacity 0.1s; }
+        
+        .holo-glitch-anim { animation: holoFlash 0.25s ease-in-out; }
+        @keyframes holoFlash {
+            0% { opacity: 1; transform: scale(1) skewX(0); filter: blur(0); }
+            20% { opacity: 0; transform: scale(1.1) skewX(-20deg); filter: blur(5px); }
+            40% { opacity: 0.5; transform: scale(0.9) skewX(20deg); color: var(--secondary); }
+            60% { opacity: 0; transform: scale(1.05) skewX(0); filter: blur(5px); }
+            80% { opacity: 0.8; transform: scale(1) skewX(-10deg); color: var(--text-color); }
+            100% { opacity: 1; transform: scale(1) skewX(0); filter: blur(0); }
+        }
+
+        /* --- 3D CENTER AREA --- */
+        .center-col { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; padding: 0;}
+        #hologram-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.8; pointer-events: none; }
+        .hero-projection { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; width: 100%; padding: 20px;}
+        
+        .glitch { font-size: 4.5rem; font-family: 'Orbitron'; font-weight: 900; color: var(--text-color); animation: glitchText 4s infinite; text-shadow: 0 0 15px var(--glow); margin-bottom: 5px; background: var(--text-box-bg); padding: 0 20px; border-radius: 10px;}
+        @keyframes glitchText { 0%, 90%, 100% { text-shadow: 0 0 15px var(--glow); } 92% { text-shadow: 3px 0 var(--secondary), -3px 0 var(--primary); } 95% { text-shadow: -3px 0 var(--secondary), 3px 0 var(--primary); } }
+        
+        .operator-id { color: var(--secondary); font-size: 1rem; margin-bottom: 15px; font-weight: bold; letter-spacing: 2px; text-shadow: 0 0 5px rgba(255,255,255,0.2); background: var(--text-box-bg); padding: 5px 15px; border: 1px solid var(--border-style);}
+
+        .center-col p { max-width: 500px; font-size: 1rem; color: var(--text-color); background: var(--text-box-bg); padding: 15px; border-left: 3px solid var(--primary); margin: 0 auto 30px; backdrop-filter: blur(4px); line-height: 1.5; border-right: 3px solid var(--secondary); box-shadow: 0 0 15px var(--box-highlight);}
+
+        .center-status { position: absolute; top: 0; font-size: 0.8rem; color: var(--success); display: flex; align-items: center; gap: 8px; border: 1px solid var(--success); padding: 4px 12px; background: var(--text-box-bg); z-index: 3; font-weight: bold;}
+        .status-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); animation: pulseDot 1.5s infinite; }
+        #load-canvas { width: 60px; height: 20px; border-left: 1px solid rgba(0,255,0,0.3); margin-left: 5px; padding-left: 5px;}
+
+        /* RIGHT AREA */
+        .prices-container { display: flex; flex-direction: column; gap: 15px; }
+        .price-item { border: 1px dashed var(--border-style); padding: 15px; background: var(--box-highlight); clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); transition: 0.2s;}
+        .price-item:hover { border-style: solid; border-color: var(--secondary); transform: translateX(-5px); }
+        .price-title { color: var(--secondary); font-size: 0.95rem; margin-bottom: 8px; font-weight: bold;}
+
+        .faq-item { background: var(--box-highlight); border-left: 2px solid var(--border-style); margin-bottom: 8px; padding: 10px; cursor: pointer; font-size: 0.85rem; position: relative;}
+        .faq-item:hover { border-left-color: var(--secondary); }
+        .faq-answer { display: none; padding-top: 8px; color: var(--primary); border-top: 1px dashed var(--border-style); margin-top: 8px; font-size: 0.8rem;}
+
+        footer { 
+            display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; 
+            background: var(--hud-bg); border: 1px solid var(--primary); box-shadow: 0 0 15px var(--glow);
+            clip-path: polygon(20px 0, calc(100% - 20px) 0, 100% 100%, 0 100%); margin-top: 25px; font-size: 0.8rem; opacity: 0.9; font-weight: bold;
+        }
+
+        @media (max-width: 1024px) { 
+            .main-viewport { grid-template-columns: 1fr; display: flex; flex-direction: column; gap: 30px; }
+            .center-col { order: -1; min-height: 400px; margin-bottom: 20px;}
+            .center-status { position: absolute; margin-bottom: 20px; top: 0;}
+            .side-panel { clip-path: none; border-radius: 8px; }
+            header, footer { clip-path: none; flex-direction: column; text-align: center; gap: 15px; border-radius: 8px; padding: 15px;}
+            .glitch { font-size: 3rem; }
+            .prices-container { flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
+            .price-item { flex: 1 1 45%; min-width: 200px; clip-path: none; border-radius: 8px;}
+        }
+        @media (max-width: 480px) { .glitch { font-size: 2.2rem; } .price-item { flex: 1 1 100%; } .btn-action { width: 100%; padding: 15px 20px; } }
+    </style>
+</head>
+<body>
+
+    <div id="boot-screen"></div>
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <canvas id="circuit-bg"></canvas>
+
+    <div id="ticket-modal">
+        <h3 style="color: var(--primary); font-family: 'Orbitron'; margin-bottom: 10px;">> INGRESO_TICKET</h3>
+        <p style="font-size: 0.8rem; margin-bottom: 8px;">ID Sesión: <span id="session-id" style="color:var(--secondary)"></span></p>
+        <input type="text" id="t-torre" placeholder="INGRESE SU NOMBRE">
+        <input type="text" id="t-depto" placeholder="UBICACIÓN">
+        <textarea id="t-falla" rows="3" placeholder="DESCRIBA SU FALLA..."></textarea>
+        <button class="btn-action" style="width:100%" onclick="sendTicket()"><i class="fab fa-whatsapp"></i> EJECUTAR ENVÍO</button>
+        <button onclick="closeModal()" style="background:none; border:none; color:var(--danger); margin-top:10px; font-family:'Share Tech Mono'; cursor:pointer; width:100%; font-size:0.8rem;">[ CANCELAR_OPERACIÓN ]</button>
+    </div>
+
+    <div class="hud-wrapper">
+        <header>
+            <div class="top-left tech-corner"></div><div class="top-right tech-corner"></div>
+            <div class="logo" id="logo-main" title="Doble clic para auditar núcleo..."><a href="https://dijkstra.net.pe/" style="text-decoration: none; color: inherit;">DIJKSTRA</a></div>
+            <div class="header-controls">
+                <button class="ctrl-btn" id="audio-toggle" onclick="toggleAudio()"><i class="fas fa-volume-mute"></i> AUDIO: OFF</button>
+                <button class="ctrl-btn" onclick="toggleTheme()">VISIÓN</button>
+            </div>
+        </header>
+
+        <main class="main-viewport">
+            <div class="left-col">
+                
+                <section class="hud-panel side-panel terminal-module" style="flex-grow: 1;">
+                    <div class="top-left tech-corner"></div><div class="bot-right tech-corner"></div>
+                    <div class="panel-header">> MÓDULOS_SOPORTE</div>
+                    <div class="panel-body">
+                        <div class="tech-grid">
+                            <button class="tech-btn" onclick="typeInTerminal('microsoft')"><i class="fab fa-microsoft"></i><span>Microsoft</span></button>
+                            <button class="tech-btn" onclick="typeInTerminal('office')"><i class="fas fa-file-alt"></i><span>Office</span></button>
+                            <button class="tech-btn" onclick="typeInTerminal('os')"><i class="fab fa-windows"></i><span>Config OS</span></button>
+                            <button class="tech-btn" onclick="typeInTerminal('software')"><i class="fas fa-box-open"></i><span>Software</span></button>
+                        </div>
+                        <div class="terminal-display">
+                            <div id="terminal-text">> Esperando selección de entrada...<span style="display:inline-block; width:8px; height:12px; background:currentColor; animation:blink 1s infinite"></span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="hud-panel side-panel software-module">
+                    <div class="bot-left tech-corner"></div><div class="top-right tech-corner"></div>
+                    <div class="panel-header">> ARSENAL_DE_SOFTWARE</div>
+                    <div class="panel-body">
+                        <div class="hologram-display">
+                            <i id="holo-icon" class="fab fa-windows"></i>
+                        </div>
+                        <p style="font-size: 0.7rem; text-align: center; margin-top: 10px; color: var(--secondary);">[ Escaneando herramientas compatibles ]</p>
+                    </div>
+                </section>
+
+            </div>
+
+            <div class="center-col" id="center-column-3d">
+                <div class="center-status">
+                    <span class="status-dot"></span> SISTEMA: MONITORIZADO 
+                    <canvas id="load-canvas"></canvas>
+                </div>
+                
+                <div id="hologram-container"></div>
+                
+                <div class="hero-projection">
+                    <h1 class="glitch">SOPORTE TOTAL</h1>
+                    <div id="operator-welcome" class="operator-id"></div>
+                    <p>Soporte técnico inmediato para <strong>entornos productivos y profesionales</strong>. Asistencia directa, encriptada y 100% remota a nivel global.</p>
+                    <button class="btn-action" style="padding: 18px 40px; font-size: 1.1rem;" onclick="openModal()">
+                        <i class="fab fa-whatsapp"></i> GENERAR TICKET DE AYUDA
+                    </button>
+                </div>
+            </div>
+
+            <div class="right-col">
+                
+                <section class="hud-panel side-panel pricing-module" style="flex-grow: 1;">
+                    <div class="top-right tech-corner"></div><div class="bot-left tech-corner"></div>
+                    <div class="panel-header">> PROTOCOLOS_INTERVENCIÓN</div>
+                    <div class="panel-body">
+                        <div class="prices-container">
+                            
+                            <div class="price-item" style="border-color:var(--primary); border-style: solid; background:var(--box-highlight);">
+                                <div class="price-title" style="color:var(--primary)">[ Soporte & Purga Táctica ]</div>
+                                <div style="font-size:0.85rem; margin-bottom: 10px;">Diagnóstico rápido y setup de periféricos. Erradicación profunda de malware/virus, corrección de lentitud extrema y optimización del sistema.</div>
+                                <button class="btn-consult" onclick="openModal()">[ CONSULTAR ]</button>
+                            </div>
+                            
+                            <div class="price-item">
+                                <div class="price-title">[ Despliegue de Entorno ]</div>
+                                <div style="font-size:0.85rem; margin-bottom: 10px;">Instalación limpia de OS. Setup completo de herramientas productivas (Suite Office/Adobe) y configuración avanzada de usuario.</div>
+                                <button class="btn-consult" onclick="openModal()">[ CONSULTAR ]</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <section class="hud-panel side-panel logs-module">
+                    <div class="bot-right tech-corner"></div><div class="top-left tech-corner"></div>
+                    <div class="panel-header">> LOGS_CONOCIMIENTO (FAQ)</div>
+                    <div class="panel-body">
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            > ¿CÓMO FUNCIONA EL SOPORTE REMOTO?
+                            <div class="faq-answer">Utilizamos programas seguros (AnyDesk/TeamViewer). Tú nos das un código temporal, vemos tu pantalla y reparamos el software mientras observas el proceso.</div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            > ¿REPARAN HARDWARE O RECUPERAN DATOS?
+                            <div class="faq-answer">No. Los servicios son 100% online enfocados en software y sistemas. No realizamos cambios de piezas ni recuperación de archivos borrados.</div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            > ¿ES SEGURA LA CONEXIÓN A MI PC?
+                            <div class="faq-answer">Totalmente. El acceso requiere tu autorización por sesión. Ves cada movimiento y puedes finalizar la conexión con un clic. No hay cambios ocultos.</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="bot-left tech-corner"></div><div class="bot-right tech-corner"></div>
+            <a href="https://dijkstra.net.pe/" style="text-decoration: none; color: inherit;">DIJKSTRA.NET.PE</a>
+            <p style="font-size:0.75rem;">© 2026. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        let matOuter, matInner, particlesMat;
+
+        const init3DHologram = () => {
+            const container = document.getElementById('hologram-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); 
+            
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            const coreGroup = new THREE.Group();
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            const color1 = isLight ? 0x0056b3 : 0x00ffcc;
+            const color2 = isLight ? 0xd35400 : 0xff00ff;
+
+            matOuter = new THREE.MeshBasicMaterial({ color: color1, wireframe: true, transparent: true, opacity: 0.3 });
+            const meshOuter = new THREE.Mesh(new THREE.IcosahedronGeometry(2.5, 1), matOuter);
+            coreGroup.add(meshOuter);
+
+            matInner = new THREE.MeshBasicMaterial({ color: color2, wireframe: true, transparent: true, opacity: 0.6 });
+            const meshInner = new THREE.Mesh(new THREE.OctahedronGeometry(1.5, 0), matInner);
+            coreGroup.add(meshInner);
+
+            const particlesGeo = new THREE.BufferGeometry();
+            const particlesCount = 100;
+            const posArray = new Float32Array(particlesCount * 3);
+            for(let i=0; i<particlesCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 8;
+            particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            particlesMat = new THREE.PointsMaterial({ size: 0.05, color: color1, transparent: true, opacity: 0.8 });
+            const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+            coreGroup.add(particlesMesh);
+
+            scene.add(coreGroup);
+            camera.position.z = 5;
+
+            let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+            const windowHalfX = window.innerWidth / 2, windowHalfY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (event) => { mouseX = (event.clientX - windowHalfX); mouseY = (event.clientY - windowHalfY); });
+
+            const animate3D = () => {
+                requestAnimationFrame(animate3D);
+                meshOuter.rotation.x += 0.001; meshOuter.rotation.y += 0.002;
+                meshInner.rotation.x -= 0.005; meshInner.rotation.y -= 0.005;
+                particlesMesh.rotation.y += 0.001;
+                targetX = mouseX * 0.001; targetY = mouseY * 0.001;
+                coreGroup.rotation.y += 0.05 * (targetX - coreGroup.rotation.y);
+                coreGroup.rotation.x += 0.05 * (targetY - coreGroup.rotation.x);
+                renderer.render(scene, camera);
+            };
+            animate3D();
+
+            window.addEventListener('resize', () => {
+                if(container.clientWidth > 0) {
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                }
+            });
+        };
+        window.addEventListener('load', init3DHologram);
+
+        function toggleTheme() { 
+            const html = document.documentElement; 
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark'); 
+            
+            if (matOuter && matInner && particlesMat) {
+                const color1 = isDark ? 0x0056b3 : 0x00ffcc;
+                const color2 = isDark ? 0xd35400 : 0xff00ff; 
+                matOuter.color.setHex(color1);
+                matInner.color.setHex(color2);
+                particlesMat.color.setHex(color1);
+            }
+        }
+
+        let audioEnabled = false; const synth = window.speechSynthesis;
+        function toggleAudio() {
+            const btn = document.getElementById('audio-toggle'); audioEnabled = !audioEnabled;
+            if(audioEnabled) { btn.innerHTML = '<i class="fas fa-volume-up"></i> AUDIO: ON'; btn.classList.add('active'); speakSystem("Enlace de audio establecido. Módulos en línea."); } 
+            else { btn.innerHTML = '<i class="fas fa-volume-mute"></i> AUDIO: OFF'; btn.classList.remove('active'); synth.cancel(); }
+        }
+        function speakSystem(text) { if(!audioEnabled) return; synth.cancel(); const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'es-ES'; utterance.pitch = 0.6; utterance.rate = 1.1; synth.speak(utterance); }
+
+        function checkPersistentMemory() {
+            const savedData = JSON.parse(localStorage.getItem('condoOpData'));
+            if(savedData) { document.getElementById('t-torre').value = savedData.torre; document.getElementById('t-depto').value = savedData.depto; document.getElementById('operator-welcome').innerHTML = `> OPERADOR LOCALIZADO: ${savedData.torre} / ${savedData.depto} <`; }
+        }
+
+        const loadCanvas = document.getElementById('load-canvas'); const lCtx = loadCanvas.getContext('2d');
+        loadCanvas.width = 60; loadCanvas.height = 20; let loadData = Array(30).fill(10); 
+        function drawLoad() {
+            lCtx.clearRect(0, 0, loadCanvas.width, loadCanvas.height); loadData.shift();
+            loadData.push(Math.random() > 0.85 ? Math.random() * 20 : 10 + (Math.random() * 2 - 1)); 
+            lCtx.beginPath();
+            lCtx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--success').trim() || '#00ff00';
+            lCtx.lineWidth = 1;
+            for(let i = 0; i < loadData.length; i++) { lCtx.lineTo((i / loadData.length) * loadCanvas.width, loadData[i]); }
+            lCtx.stroke(); requestAnimationFrame(drawLoad);
+        }
+        drawLoad(); checkPersistentMemory(); 
+
+        const bootScreen = document.getElementById('boot-screen');
+        const lines = ["Initializing Tactical HUD v9.6...", "Loading System Integrity Modules...", "Bypassing security protocols...", "ACCESS GRANTED."];
+        lines.forEach((l, i) => { setTimeout(() => { const div = document.createElement('div'); div.className = 'boot-line'; div.textContent = `> ${l}`; bootScreen.appendChild(div); }, i * 300); });
+        setTimeout(() => { bootScreen.style.transition = 'opacity 0.5s'; bootScreen.style.opacity = '0'; setTimeout(()=> bootScreen.style.display = 'none', 500); }, 1800);
+
+        function openModal() { document.getElementById('ticket-modal').style.display = 'block'; document.getElementById('modalOverlay').style.display = 'block'; document.getElementById('session-id').textContent = Math.random().toString(36).substring(2, 9).toUpperCase(); }
+        function closeModal() { document.getElementById('ticket-modal').style.display = 'none'; document.getElementById('modalOverlay').style.display = 'none'; }
+        
+        function sendTicket() {
+            const torre = document.getElementById('t-torre').value; const depto = document.getElementById('t-depto').value; const falla = document.getElementById('t-falla').value; const session = document.getElementById('session-id').textContent;
+            if(!torre || !depto || !falla) { speakSystem("Error. Campos incompletos."); return alert("❌ ALERTA: COMPLETE TODOS LOS CAMPOS DEL TICKET"); }
+            localStorage.setItem('condoOpData', JSON.stringify({torre: torre, depto: depto})); speakSystem("Ticket generado.");
+            const msg = encodeURIComponent(`ALERTA SOPORTE REMOTO\nID: ${session}\nCLIENTE: ${torre} - ${depto}\nREQUERIMIENTO: ${falla}`);
+            window.open(`https://wa.me/51981199317?text=${msg}`, '_blank'); closeModal(); checkPersistentMemory(); 
+        }
+
+        // --- ARSENAL HOLOGRÁFICO SIN EL LOGO DE APPLE ---
+        const holoIcons = [
+            'fab fa-windows', 'fab fa-microsoft', 'fas fa-shield-virus', 
+            'fas fa-cogs', 'fas fa-network-wired', 'fab fa-chrome'
+        ];
+        let currentHoloIndex = 0;
+        const holoIconEl = document.getElementById('holo-icon');
+        
+        setInterval(() => {
+            holoIconEl.classList.add('holo-glitch-anim');
+            setTimeout(() => {
+                currentHoloIndex = (currentHoloIndex + 1) % holoIcons.length;
+                holoIconEl.className = `${holoIcons[currentHoloIndex]}`;
+            }, 125); 
+            setTimeout(() => {
+                holoIconEl.classList.remove('holo-glitch-anim');
+            }, 250);
+        }, 2500); 
+
+        const supportData = { 
+            microsoft: "ECOSISTEMA MICROSOFT\n> Configuración de cuentas de usuario.\n> Sincronización OneDrive y Teams.\n> Resolución de bloqueos de sesión.\n> Estado: EXPERTO.", 
+            office: "SUITE OFFICE 365\n> Reparación de correos atascados (PST).\n> Activación y licenciamiento.\n> Corrección de bloqueos en Excel/Word.\n> Estado: AVANZADO.", 
+            os: "CONFIGURACIÓN OS (Win/Mac)\n> Optimización de arranque y rendimiento.\n> Limpieza profunda de temporales.\n> Configuración de periféricos e impresoras.\n> Estado: EXPERTO.", 
+            software: "DESPLIEGUE DE SOFTWARE\n> Instalación segura de utilitarios.\n> Despliegue de Suite Adobe, AutoCAD.\n> Instalación de Certificados Digitales.\n> Estado: AVANZADO." 
+        };
+
+        let terminalTimer; 
+        function typeInTerminal(key) {
+            const el = document.getElementById('terminal-text'); const text = supportData[key];
+            document.querySelectorAll('.tech-btn').forEach(b => b.classList.remove('active')); event.currentTarget.classList.add('active');
+            if(terminalTimer) clearInterval(terminalTimer);
+            el.innerHTML = "> Ejecutando diagnóstico de módulo...\n<br>> "; let i = 0;
+            terminalTimer = setInterval(() => {
+                if(i < text.length) { el.innerHTML += text.charAt(i) === '\n' ? '<br>> ' : text.charAt(i); i++; } 
+                else { clearInterval(terminalTimer); el.innerHTML += ' <span style="display:inline-block; width:8px; height:12px; background:currentColor; animation:blink 1s infinite"></span>'; }
+            }, 15); 
+        }
+
+        function toggleFaq(el) { const ans = el.querySelector('.faq-answer'); ans.style.display = ans.style.display === 'block' ? 'none' : 'block'; }
+        let clicks = 0; let timer; document.getElementById('logo-main').addEventListener('click', () => { clicks++; clearTimeout(timer); timer = setTimeout(()=> clicks = 0, 1000); if(clicks === 3) { speakSystem("Acceso maestro concedido."); alert("⚠️ NÚCLEO HACKEADO:\nUsa el código 'NETRUNNER_V9' en tu ticket para prioridad máxima."); clicks = 0; } });
+
+        const bgCanvas = document.getElementById('circuit-bg'), bgCtx = bgCanvas.getContext('2d');
+        let bgW, bgH; function resizeBg() { bgW = bgCanvas.width = window.innerWidth; bgH = bgCanvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeBg); resizeBg();
+        function animateBg() { bgCtx.fillStyle = document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(228, 231, 235, 0.2)' : 'rgba(5,6,9,0.2)'; bgCtx.fillRect(0,0,bgW,bgH); requestAnimationFrame(animateBg); }
+        animateBg();
     </script>
-  </body>
+</body>
 </html>
